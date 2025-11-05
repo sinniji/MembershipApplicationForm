@@ -237,21 +237,20 @@
             </div>
             
             <!-- ふりがな・氏名 -->
-            <div class="row">
-                <div class="form-group">
-                    <label for="furigana">ふりがな *</label>
+            <div class="form-row"> 
+                <div class="form-field width-75"> <label for="furigana">ふりがな *</label>
                     <input type="text" id="furigana" name="furigana" class="text-input" required>
                 </div>
-                <div class="form-group">
-                    <label for="gender">性別 *</label>
-                    <select id="gender" name="gender" class="dropdown width-50" required>
+                
+                <div class="form-field width-25"> <label for="gender">性別 *</label>
+                    <select id="gender" name="gender" class="dropdown" required> 
                         <option value="">選択してください</option>
                         <option value="男">男</option>
                         <option value="女">女</option>
                     </select>
                 </div>
-            </div>
             
+            </div>            
             <!-- 氏名・年齢 -->
             <div class="form-row">
             
@@ -267,10 +266,9 @@
                 
             </div>
             <!-- 郵便番号 -->
-            <div class="form-field">
-                <label for="postal">郵便番号</label>
+            <div class="form-field width-25"> <label for="postal">郵便番号</label>
                 <input type="text" id="postal" name="postal" class="text-input" placeholder="例: 123-4567">
-            </div>            
+            </div>
             <!-- 住所 -->
             <div class="form-group">
                 <label for="address1">住所 1</label>
