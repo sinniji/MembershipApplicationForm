@@ -43,7 +43,13 @@
             font-weight: bold;
             color: #555;
         }
-        
+
+        .width-25 {
+            width: 25%;
+        }
+        .width-50 {
+            width: 50%;
+        }
         input[type="text"],
         input[type="email"],
         input[type="number"],
@@ -171,7 +177,7 @@
             <!-- 継続・新規 -->
             <div class="form-group">
                 <label for="status">継続・新規 *</label>
-                <select id="status" name="status" class="dropdown" required>
+                <select id="status" name="status" class="dropdown width-25" required>
                     <option value="">選択してください</option>
                     <option value="継続">継続</option>
                     <option value="新規">新規</option>
@@ -181,7 +187,7 @@
             <!-- 支部 -->
             <div class="form-group">
                 <label for="branch">支部 *</label>
-                <select id="branch" name="branch" class="dropdown" required>
+                <select id="branch" name="branch" class="dropdown width-50" required>
                     <option value="">選択してください</option>
                     <option value="門司">門司</option>
                     <option value="小倉北">小倉北</option>
