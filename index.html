@@ -87,24 +87,25 @@
             margin-bottom: 16px; /* 次の行との隙間 */
         }
         
-/* 入力欄と単位を横並びにする */
-.input-with-unit {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* 入力欄の幅を調整 */
-.input-with-unit .text-input {
-    flex: 1;
-}
-
-/* ラベルを上下中央に配置 */
-.form-field label {
-    display: flex;
-    align-items: center;
-    height: 100%;
-}        /* 幅を制御するクラス (親のdivに適用) */
+        /* 入力欄と単位を横並びにする */
+        .input-with-unit {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* 入力欄の幅を調整 */
+        .input-with-unit .text-input {
+            flex: 1;
+        }
+        
+        /* ラベルと入力欄の間に余白を追加 */
+        .form-field label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        /* 幅を制御するクラス (親のdivに適用) */
         .width-75 {
             flex-basis: 75%; /* Flexbox内での幅の割合 */
         }
@@ -430,32 +431,31 @@
             <!-- ボランティア申込書 -->
             <div class="section-title">ボランティア申込書</div>
                   
-<div class="form-row">
-  <div class="form-field width-50">
-      <label for="qualification_year">手話通訳者認定試験合格</label>
-  </div>
-  <div class="form-field width-25 input-with-unit">
-      <input type="number" id="qualification_year" name="qualification_year" class="text-input">
-      <span>年</span>
-  </div>
-  <div class="form-field width-25 input-with-unit">
-      <input type="text" id="qualification_city" name="qualification_city" class="text-input">
-      <span>市</span>
-  </div>
-</div>
-
-<div class="form-row">
-  <div class="form-field width-50">
-      <label for="registration_year">手話通訳士合格</label>
-  </div>
-  <div class="form-field width-25 input-with-unit">
-      <input type="number" id="registration_year" name="registration_year" class="text-input">
-      <span>年</span>
-  </div>
-  <div class="form-field width-25">
-      <!-- 空 -->
-  </div>
-</div>      
+            <div class="form-row">
+              <div class="form-field width-50">
+                  <label for="qualification_year">手話通訳者認定試験合格</label>
+                  <div class="input-with-unit">
+                      <input type="number" id="qualification_year" name="qualification_year" class="text-input">
+                      <span>年</span>
+                  </div>
+              </div>
+              <div class="form-field width-50">
+                  <div class="input-with-unit">
+                      <input type="text" id="qualification_city" name="qualification_city" class="text-input">
+                      <span>市</span>
+                  </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-field width-50">
+                  <label for="registration_year">手話通訳士合格</label>
+                  <div class="input-with-unit">
+                      <input type="number" id="registration_year" name="registration_year" class="text-input">
+                      <span>年</span>
+                  </div>
+              </div>
+            </div>
             
             <div class="form-group">
                 <label>移動手段</label>
