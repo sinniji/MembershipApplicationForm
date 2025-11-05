@@ -86,7 +86,16 @@
             gap: 16px;           /* 子要素間の隙間 (例: 16px) */
             margin-bottom: 16px; /* 次の行との隙間 */
         }
-        
+        /* spanを入力欄の右側に配置 */
+.form-field span {
+    margin-left: 4px;
+}
+
+/* label要素の高さを入力欄と揃える */
+.form-field label {
+    display: inline-block;
+    line-height: 2; /* 入力欄の高さに合わせて調整してください */
+}
         /* 幅を制御するクラス (親のdivに適用) */
         .width-75 {
             flex-basis: 75%; /* Flexbox内での幅の割合 */
@@ -426,32 +435,29 @@
               </div>
             </div>
       
-            <div class="form-row">
-              <div class="form-field width-50">
-                  <label for="registration_year">手話通訳士合格</label>
-              </div>
-              <div class="form-field width-25">
-                  <input type="number" id="registration_year" name="registration_year" class="text-input"> <span>年</span>
-              </div>
-            </div>         
-            
-            <div class="form-group">
-                <label>資格</label>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="qual_caregiver" name="qual_caregiver">
-                        <label for="qual_caregiver">看護師等</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="qual_childcare" name="qual_childcare">
-                        <label for="qual_childcare">保育士・幼稚園教諭</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="qual_teacher" name="qual_teacher">
-                        <label for="qual_teacher">教員</label>
-                    </div>
-                </div>
-            </div>
+<div class="form-row">
+  <div class="form-field width-50">
+      <label for="qualification_year">手話通訳者認定試験合格</label>
+  </div>
+  <div class="form-field width-25">
+      <input type="number" id="qualification_year" name="qualification_year" class="text-input"><span>年</span>
+  </div>
+  <div class="form-field width-25">
+      <input type="text" id="qualification_city" name="qualification_city" class="text-input"><span>市</span>
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-field width-50">
+      <label for="registration_year">手話通訳士合格</label>
+  </div>
+  <div class="form-field width-25">
+      <input type="number" id="registration_year" name="registration_year" class="text-input"><span>年</span>
+  </div>
+  <div class="form-field width-25">
+      <!-- 空のdivで幅を保持 -->
+  </div>
+</div>
             
             <div class="form-group">
                 <label>移動手段</label>
