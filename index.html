@@ -431,32 +431,24 @@
             <!-- ボランティア申込書 -->
             <div class="section-title">ボランティア申込書</div>
                   
-<div class="form-row">
-  <div class="form-field width-25">
-      <label for="qualification_year">手話通訳者認定試験合格</label>
-      <div class="input-with-unit">
-          <input type="number" id="qualification_year" name="qualification_year" class="text-input">
-          <span>年</span>
-      </div>
-  </div>
-  <div class="form-field width-25">
-      <label style="visibility: hidden;">placeholder</label>
-      <div class="input-with-unit">
-          <input type="text" id="qualification_city" name="qualification_city" class="text-input">
-          <span>市</span>
-      </div>
-  </div>
-</div>
+            <div class="form-group">
+                <label for="qualification_year">手話通訳者認定試験合格</label>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" id="qualification_year" name="qualification_year" class="text-input" style="width: 150px;">
+                    <span>年</span>
+                    <input type="text" id="qualification_city" name="qualification_city" class="text-input" style="width: 150px;">
+                    <span>市</span>
+                </div>
+            </div>
 
-<div class="form-row">
-  <div class="form-field width-25">
-      <label for="registration_year">手話通訳士合格</label>
-      <div class="input-with-unit">
-          <input type="number" id="registration_year" name="registration_year" class="text-input">
-          <span>年</span>
-      </div>
-  </div>
-</div>            
+            <div class="form-group">
+                <label for="registration_year">手話通訳士合格</label>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" id="registration_year" name="registration_year" class="text-input" style="width: 150px;">
+                    <span>年</span>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label>移動手段</label>
                 <div class="checkbox-group">
