@@ -50,18 +50,35 @@
         .width-50 {
             width: 50%;
         }
-        input[type="text"],
-        input[type="email"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
+        /* ラベルのスタイル (例) */
+        label {
+            display: block; /* inputの上に表示 */
+            margin-bottom: 4px;
+            font-weight: bold;
         }
         
+        /* フォームの各項目を包むラッパー */
+        .form-field {
+            margin-bottom: 16px; /* 項目間の縦の隙間 */
+        }
+        
+        /* 横並びにするための親ラッパー */
+        .form-row {
+            display: flex;       /* 子要素を横並びにする */
+            gap: 16px;           /* 子要素間の隙間 (例: 16px) */
+            margin-bottom: 16px; /* 次の行との隙間 */
+        }
+        
+        /* 幅を制御するクラス (親のdivに適用) */
+        .width-75 {
+            flex-basis: 75%; /* Flexbox内での幅の割合 */
+        }
+        .width-25 {
+            flex-basis: 25%;
+        }
+        .width-50 {
+            flex-basis: 50%;
+        }        
         .dropdown {
             background-color: #fffacd;
         }
@@ -218,23 +235,24 @@
             </div>
             
             <!-- 氏名・年齢 -->
-            <div class="row">
-                <div class="form-group">
+            <div class="form-row">
+            
+                <div class="form-field width-75">
                     <label for="name">氏名 *</label>
-                    <input type="text" id="name" name="name" class="text-input" required>
+                    <input type="text" id="name" name="name" class="text-input">
                 </div>
-                <div class="form-group">
+                
+                <div class="form-field width-25">
                     <label for="age">年齢</label>
-                    <input type="number" id="age" name="age" class="text-input width-25" min="0">
-                </div>
+                    <input type="number" id="age" name="age" class="text-input" min="0">
+                </div>   
+                
             </div>
-            
             <!-- 郵便番号 -->
-            <div class="form-group">
+            <div class="form-field">
                 <label for="postal">郵便番号</label>
-                <input type="text" id="postal" name="postal" class="text-input width-25" placeholder="例: 123-4567">
-            </div>
-            
+                <input type="text" id="postal" name="postal" class="text-input" placeholder="例: 123-4567">
+            </div>            
             <!-- 住所 -->
             <div class="form-group">
                 <label for="address1">住所 1</label>
