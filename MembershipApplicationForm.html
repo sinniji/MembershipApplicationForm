@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>入会申込書</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .dropdown {
+            background-color: #fffacd;
+        }
+        
+        .text-input {
+            background-color: #e0f7fa;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .section-title {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin: 25px 0 15px 0;
+            font-weight: bold;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .submit-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .message {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .activity-table {
+            margin-top: 15px;
+        }
+        
+        .activity-row {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>入会申込書</h1>
+        
+        <div id="message" class="message"></div>
+        
+        <form id="membershipForm">
+            <!-- 継続・新規 -->
+            <div class="form-group">
+                <label for="status">継続・新規 *</label>
+                <select id="status" name="status" class="dropdown" required>
+                    <option value="">選択してください</option>
+                    <option value="継続">継続</option>
+                    <option value="新規">新規</option>
+                </select>
+            </div>
+            
+            <!-- 支部 -->
+            <div class="form-group">
+                <label for="branch">支部 *</label>
+                <select id="branch" name="branch" class="dropdown" required>
+                    <option value="">選択してください</option>
+                    <option value="門司">門司</option>
+                    <option value="小倉北">小倉北</option>
+                    <option value="小倉南">小倉南</option>
+                    <option value="戸畑">戸畑</option>
+                    <option value="若松">若松</option>
+                    <option value="八幡東">八幡東</option>
+                    <option value="八幡西">八幡西</option>
+                    <option value="東昼間">東昼間</option>
+                    <option value="西昼間">西昼間</option>
+                </select>
+            </div>
+            
+            <!-- ふりがな・氏名 -->
+            <div class="row">
+                <div class="form-group">
+                    <label for="furigana">ふりがな *</label>
+                    <input type="text" id="furigana" name="furigana" class="text-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">性別 *</label>
+                    <select id="gender" name="gender" class="dropdown" required>
+                        <option value="">選択してください</option>
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- 氏名・年齢 -->
+            <div class="row">
+                <div class="form-group">
+                    <label for="name">氏名 *</label>
+                    <input type="text" id="name" name="name" class="text-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">年齢</label>
+                    <input type="number" id="age" name="age" class="text-input" min="0">
+                </div>
+            </div>
+            
+            <!-- 郵便番号 -->
+            <div class="form-group">
+                <label for="postal">郵便番号</label>
+                <input type="text" id="postal" name="postal" class="text-input" placeholder="例: 123-4567">
+            </div>
+            
+            <!-- 住所 -->
+            <div class="form-group">
+                <label for="address1">住所 1</label>
+                <input type="text" id="address1" name="address1" class="text-input">
+            </div>
+            
+            <div class="form-group">
+                <label for="address2">住所 2</label>
+                <input type="text" id="address2" name="address2" class="text-input">
+            </div>
+            
+            <!-- 電話 -->
+            <div class="form-group">
+                <label for="phone">電話</label>
+                <input type="text" id="phone" name="phone" class="text-input">
+            </div>
+            
+            <!-- FAX -->
+            <div class="form-group">
+                <label for="fax">FAX</label>
+                <input type="text" id="fax" name="fax" class="text-input">
+            </div>
+            
+            <!-- Mail -->
+            <div class="form-group">
+                <label for="email">Mail</label>
+                <input type="email" id="email" name="email" class="text-input">
+            </div>
+            
+            <!-- 区分 -->
+            <div class="form-group">
+                <label for="category">区分 *</label>
+                <select id="category" name="category" class="dropdown" required>
+                    <option value="">選択してください</option>
+                    <option value="小学生">小学生</option>
+                    <option value="中学生">中学生</option>
+                    <option value="高校生">高校生</option>
+                    <option value="大学生">大学生</option>
+                    <option value="勤労者">勤労者</option>
+                    <option value="主婦">主婦</option>
+                    <option value="退職者">退職者</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+            
+            <!-- 手話歴 -->
+            <div class="form-group">
+                <label>手話歴</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="deaf_family" name="deaf_family">
+                        <label for="deaf_family">聾者家族講座終了</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="basic_course" name="basic_course">
+                        <label for="basic_course">入門基礎講座終了</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="cup" name="cup">
+                        <label for="cup">カップ</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="step" name="step">
+                        <label for="step">ステップ</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="jump" name="jump">
+                        <label for="jump">ジャンプ</label>
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="experience_years">手話歴年数</label>
+                    <select id="experience_years" name="experience_years" class="dropdown">
+                        <option value="">選択してください</option>
+                        <option value="1年">1年</option>
+                        <option value="２〜５年">２〜５年</option>
+                        <option value="６年〜１０年">６年〜１０年</option>
+                        <option value="11年〜15年">11年〜15年</option>
+                        <option value="16年〜20年">16年〜20年</option>
+                        <option value="21年以上">21年以上</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="other_experience">その他</label>
+                    <input type="text" id="other_experience" name="other_experience" class="text-input">
+                </div>
+            </div>
+            
+            <!-- ボランティア保険 -->
+            <div class="section-title">ボランティア保険</div>
+            
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="new_policy" name="new_policy">
+                        <label for="new_policy">新規の方で加入する</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="own_policy" name="own_policy">
+                        <label for="own_policy">他団体で加入済み</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>連絡は</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="contact_mail" name="contact_mail">
+                        <label for="contact_mail">メールを希望</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="contact_fax" name="contact_fax">
+                        <label for="contact_fax">FAXを希望</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="contact_line" name="contact_line">
+                        <label for="contact_line">LINEを希望</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="contact_no_line" name="contact_no_line">
+                        <label for="contact_no_line">LINEも希望しない</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ボランティア申込書 -->
+            <div class="section-title">ボランティア申込書</div>
+            
+            <div class="form-group">
+                <label for="qualification_year">手話通訳者認定試験合格（年）</label>
+                <input type="text" id="qualification_year" name="qualification_year" class="text-input">
+            </div>
+            
+            <div class="form-group">
+                <label for="registration_year">手話通訳士合格（年）</label>
+                <input type="text" id="registration_year" name="registration_year" class="text-input">
+            </div>
+            
+            <div class="form-group">
+                <label>資格</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="qual_caregiver" name="qual_caregiver">
+                        <label for="qual_caregiver">看護師等</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="qual_childcare" name="qual_childcare">
+                        <label for="qual_childcare">保育士・幼稚園教諭</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="qual_teacher" name="qual_teacher">
+                        <label for="qual_teacher">教員</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>移動手段</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="transport_car" name="transport_car">
+                        <label for="transport_car">自家用車</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="transport_jr" name="transport_jr">
+                        <label for="transport_jr">JR</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="transport_bus" name="transport_bus">
+                        <label for="transport_bus">バス（西鉄・市営）</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="transport_monorail" name="transport_monorail">
+                        <label for="transport_monorail">モノレール</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>これまでの手話ボランティア活動の経験</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="prev_experience_yes" name="prev_experience_yes">
+                        <label for="prev_experience_yes">有り</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="prev_experience_no" name="prev_experience_no">
+                        <label for="prev_experience_no">無し</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 活動可能時間帯 -->
+            <div class="form-group">
+                <label>活動可能時間帯（何曜日のいつにチェックを）</label>
+                <div class="activity-table">
+                    <div class="activity-row">
+                        <span>午前</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="am_mon" name="am_mon">
+                                <label for="am_mon">月</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="am_tue" name="am_tue">
+                                <label for="am_tue">火</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="am_wed" name="am_wed">
+                                <label for="am_wed">水</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="am_thu" name="am_thu">
+                                <label for="am_thu">木</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="am_fri" name="am_fri">
+                                <label for="am_fri">金</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="am_sat" name="am_sat">
+                                <label for="am_sat">土</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="am_sun" name="am_sun">
+                                <label for="am_sun">日</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="activity-row">
+                        <span>午後</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="pm_mon" name="pm_mon">
+                                <label for="pm_mon">月</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="pm_tue" name="pm_tue">
+                                <label for="pm_tue">火</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="pm_wed" name="pm_wed">
+                                <label for="pm_wed">水</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="pm_thu" name="pm_thu">
+                                <label for="pm_thu">木</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="pm_fri" name="pm_fri">
+                                <label for="pm_fri">金</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="pm_sat" name="pm_sat">
+                                <label for="pm_sat">土</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="pm_sun" name="pm_sun">
+                                <label for="pm_sun">日</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="activity_conditions">活動可能な時間等具体的にお書きください</label>
+                <textarea id="activity_conditions" name="activity_conditions" class="text-input"></textarea>
+            </div>
+            
+            <!-- やってみたい手話ボランティア活動 -->
+            <div class="form-group">
+                <label>やってみたい手話ボランティア活動（形式）</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="activity_support" name="activity_support">
+                        <label for="activity_support">サポート</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="activity_interpretation" name="activity_interpretation">
+                        <label for="activity_interpretation">交流</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="activity_communication" name="activity_communication">
+                        <label for="activity_communication">通訳</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>やってみたい手話ボランティア活動（内容）</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="content_sports" name="content_sports">
+                        <label for="content_sports">スポーツ</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="content_exchange" name="content_exchange">
+                        <label for="content_exchange">交流会</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="content_lecture" name="content_lecture">
+                        <label for="content_lecture">講座訪問</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="content_course" name="content_course">
+                        <label for="content_course">講座</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="content_school" name="content_school">
+                        <label for="content_school">学校図書</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="content_study" name="content_study">
+                        <label for="content_study">研修会</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="content_other" name="content_other">
+                        <label for="content_other">その他</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submitBtn">送信する</button>
+        </form>
+    </div>
+
+    <script>
+        // GASのウェブアプリURLをここに設定してください
+        const GAS_URL = 'YOUR_GAS_WEB_APP_URL_HERE';
+        
+        document.getElementById('membershipForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const messageDiv = document.getElementById('message');
+            
+            // ボタンを無効化
+            submitBtn.disabled = true;
+            submitBtn.textContent = '送信中...';
+            
+            // フォームデータを収集
+            const formData = {
+                timestamp: new Date().toISOString(),
+                status: document.getElementById('status').value,
+                branch: document.getElementById('branch').value,
+                furigana: document.getElementById('furigana').value,
+                gender: document.getElementById('gender').value,
+                name: document.getElementById('name').value,
+                age: document.getElementById('age').value,
+                postal: document.getElementById('postal').value,
+                address1: document.getElementById('address1').value,
+                address2: document.getElementById('address2').value,
+                phone: document.getElementById('phone').value,
+                fax: document.getElementById('fax').value,
+                email: document.getElementById('email').value,
+                category: document.getElementById('category').value,
+                deaf_family: document.getElementById('deaf_family').checked,
+                basic_course: document.getElementById('basic_course').checked,
+                cup: document.getElementById('cup').checked,
+                step: document.getElementById('step').checked,
+                jump: document.getElementById('jump').checked,
+                experience_years: document.getElementById('experience_years').value,
+                other_experience: document.getElementById('other_experience').value,
+                new_policy: document.getElementById('new_policy').checked,
+                own_policy: document.getElementById('own_policy').checked,
+                contact_mail: document.getElementById('contact_mail').checked,
+                contact_fax: document.getElementById('contact_fax').checked,
+                contact_line: document.getElementById('contact_line').checked,
+                contact_no_line: document.getElementById('contact_no_line').checked,
+                qualification_year: document.getElementById('qualification_year').value,
+                registration_year: document.getElementById('registration_year').value,
+                qual_caregiver: document.getElementById('qual_caregiver').checked,
+                qual_childcare: document.getElementById('qual_childcare').checked,
+                qual_teacher: document.getElementById('qual_teacher').checked,
+                transport_car: document.getElementById('transport_car').checked,
+                transport_jr: document.getElementById('transport_jr').checked,
+                transport_bus: document.getElementById('transport_bus').checked,
+                transport_monorail: document.getElementById('transport_monorail').checked,
+                prev_experience_yes: document.getElementById('prev_experience_yes').checked,
+                prev_experience_no: document.getElementById('prev_experience_no').checked,
+                am_mon: document.getElementById('am_mon').checked,
+                am_tue: document.getElementById('am_tue').checked,
+                am_wed: document.getElementById('am_wed').checked,
+                am_thu: document.getElementById('am_thu').checked,
+                am_fri: document.getElementById('am_fri').checked,
+                am_sat: document.getElementById('am_sat').checked,
+                am_sun: document.getElementById('am_sun').checked,
+                pm_mon: document.getElementById('pm_mon').checked,
+                pm_tue: document.getElementById('pm_tue').checked,
+                pm_wed: document.getElementById('pm_wed').checked,
+                pm_thu: document.getElementById('pm_thu').checked,
+                pm_fri: document.getElementById('pm_fri').checked,
+                pm_sat: document.getElementById('pm_sat').checked,
+                pm_sun: document.getElementById('pm_sun').checked,
+                activity_conditions: document.getElementById('activity_conditions').value,
+                activity_support: document.getElementById('activity_support').checked,
+                activity_interpretation: document.getElementById('activity_interpretation').checked,
+                activity_communication: document.getElementById('activity_communication').checked,
+                content_sports: document.getElementById('content_sports').checked,
+                content_exchange: document.getElementById('content_exchange').checked,
+                content_lecture: document.getElementById('content_lecture').checked,
+                content_course: document.getElementById('content_course').checked,
+                content_school: document.getElementById('content_school').checked,
+                content_study: document.getElementById('content_study').checked,
+                content_other: document.getElementById('content_other').checked
+            };
+            
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                // no-corsモードの場合、レスポンスを確認できないため成功とみなす
+                messageDiv.textContent = 'データを送信しました。';
+                messageDiv.className = 'message success';
+                messageDiv.style.display = 'block';
+                
+                // フォームをリセット
+                document.getElementById('membershipForm').reset();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                messageDiv.textContent = 'エラーが発生しました: ' + error.message;
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+            } finally {
+                // ボタンを再度有効化
+                submitBtn.disabled = false;
+                submitBtn.textContent = '送信する';
+                
+                // 3秒後にメッセージを非表示
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
