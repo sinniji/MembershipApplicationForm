@@ -50,7 +50,25 @@
         .width-50 {
             width: 50%;
         }
-        /* ラベルのスタイル (例) */
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%; /* ← これは「親要素の幅に合わせる」という意味になる */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            /* box-sizing: border-box; を追加すると、
+              padding が width に含まれるようになり、レイアウトが崩れにくくなります 
+            */
+            box-sizing: border-box; 
+        }
+        
+        /* --- レイアウト用のCSS --- */
+        
+        /* ラベルのスタイル (例) */ 
         label {
             display: block; /* inputの上に表示 */
             margin-bottom: 4px;
