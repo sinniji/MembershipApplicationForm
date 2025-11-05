@@ -110,7 +110,11 @@
             flex-wrap: wrap;
             gap: 15px;
             margin-top: 10px;
-            /*flex-direction: column;*/
+        }
+
+        .vertical-items {
+            flex-direction: column; /* 子要素を縦方向に並べる */
+            align-items: flex-start; /* 縦並びの際に左揃えにする */
         }
         
         .checkbox-item {
@@ -326,7 +330,7 @@
             <!-- 手話歴 -->
             <div class="form-group">
                 <label>手話歴</label>
-                <div class="checkbox-group">
+                <div class="checkbox-group vertical-items">
                     <div class="checkbox-item">
                         <input type="checkbox" id="deaf_family" name="deaf_family">
                         <label for="deaf_family">奉仕員養成講座終了</label>
