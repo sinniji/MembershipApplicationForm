@@ -703,61 +703,36 @@
         
         document.getElementById('membershipForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-    const submitBtn = document.getElementById('submitBtn');
-    const messageDiv = document.getElementById('message');
+                
+            const submitBtn = document.getElementById('submitBtn');
+            const ownPolicyChecked = ownPolicyElement.checked;
+            const orgNameValue = orgNameInput.value.trim();
     
-    // ▼ まず変数を定義（この順序が重要）
-    const ownPolicyElement = document.getElementById('own_policy');
-    const orgNameInput = document.getElementById('organization_name');
-    
-    // ▼ 定義した後でコンソールログを出力
-    console.log('=== デバッグ開始 ===');
-    console.log('1. own_policy要素:', ownPolicyElement);
-    console.log('2. organization_name要素:', orgNameInput);
-    
-    // 要素が存在しない場合のエラーチェック
-    if (!ownPolicyElement) {
-        console.error('own_policy要素が見つかりません');
-        alert('エラー: チェックボックス(own_policy)が見つかりません');
-        return;
-    }
-    
-    if (!orgNameInput) {
-        console.error('organization_name要素が見つかりません');
-        alert('エラー: 入力欄(organization_name)が見つかりません');
-        return;
-    }
-    
-    const ownPolicyChecked = ownPolicyElement.checked;
-    const orgNameValue = orgNameInput.value.trim();
-    
-    console.log('3. ownPolicyChecked:', ownPolicyChecked);
-    console.log('4. orgNameValue:', orgNameValue);
-    console.log('5. 条件判定:', ownPolicyChecked && orgNameValue === '');
-    
-    if (ownPolicyChecked && orgNameValue === '') {
-        console.log('★★★ バリデーションエラー検知 ★★★');
-        
-        messageDiv.textContent = '「他団体で加入済み」の場合、団体名は必須です。';
-        messageDiv.className = 'message error';
-        
-        // 超目立つスタイル
-        messageDiv.style.cssText = 'display: block !important; visibility: visible !important; background-color: red !important; color: white !important; padding: 20px !important; font-size: 20px !important; border: 5px solid black !important; margin: 20px 0 !important;';
-        
-        console.log('メッセージ表示完了');
-        alert('エラーメッセージを表示しました');
-        
-        setTimeout(() => {
-            messageDiv.style.display = 'none';
-        }, 10000);
-        
-        return;
-    }
-    
-    console.log('バリデーション通過');
-    // --- デバッグ終了 ---       
-
+            if (ownPolicyChecked && orgNameValue === '') {
+                const messageDiv = document.getElementById('message');
+                
+                if (!messageDiv) {
+                    // message要素がない場合は、その場で作る
+                    const newMessage = document.createElement('div');
+                    newMessage.id = 'message';
+                    newMessage.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: red; color: white; padding: 30px; font-size: 20px; z-index: 999999; border: 5px solid black;';
+                    newMessage.textContent = '「他団体で加入済み」の場合、団体名は必須です。';
+                    document.body.appendChild(newMessage);
+                    
+                    setTimeout(() => {
+                        newMessage.remove();
+                    }, 3000);
+                } else {
+                    messageDiv.textContent = '「他団体で加入済み」の場合、団体名は必須です。';
+                    messageDiv.style.cssText = 'display: block !important; position: fixed !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; background: red !important; color: white !important; padding: 30px !important; font-size: 20px !important; z-index: 999999 !important; border: 5px solid black !important;';
+                    
+                    setTimeout(() => {
+                        messageDiv.style.display = 'none';
+                    }, 3000);
+                }
+                
+                return;
+            }
             
             // バリデーション通過後にボタンを無効化
             submitBtn.disabled = true;
