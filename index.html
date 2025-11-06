@@ -359,8 +359,8 @@
                         <label>通訳者養成講座終了</label> 
                         <span style="display: flex; align-items: center; gap: 10px; margin-left: 5px;">
                             (
-                            <input type="checkbox" id="cup" name="cup">
-                            <label for="cup">ホップ</label>
+                            <input type="checkbox" id="cup" name="hop">
+                            <label for="hop">ホップ</label>
                             
                             <input type="checkbox" id="step" name="step">
                             <label for="step">ステップ</label>
@@ -651,8 +651,7 @@
                 email: document.getElementById('email').value,
                 category: document.getElementById('category').value,
                 deaf_family: document.getElementById('deaf_family').checked,
-                basic_course: document.getElementById('basic_course').checked,
-                cup: document.getElementById('cup').checked,
+                cup: document.getElementById('hop').checked,
                 step: document.getElementById('step').checked,
                 jump: document.getElementById('jump').checked,
                 experience_years: document.getElementById('experience_years').value,
@@ -666,9 +665,6 @@
                 qualification_year: document.getElementById('qualification_year').value,
                 qualification_city: document.getElementById('qualification_city').value,
                 registration_year: document.getElementById('registration_year').value,
-                qual_caregiver: document.getElementById('qual_caregiver').checked,
-                qual_childcare: document.getElementById('qual_childcare').checked,
-                qual_teacher: document.getElementById('qual_teacher').checked,
                 transport_car: document.getElementById('transport_car').checked,
                 transport_jr: document.getElementById('transport_jr').checked,
                 transport_bus: document.getElementById('transport_bus').checked,
