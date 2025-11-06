@@ -707,10 +707,6 @@
             const messageDiv = document.getElementById('message');
             
             // --- ▼ ここから追加：送信前バリデーション ▼ ---
-            const ownPolicyChecked = document.getElementById('own_policy').checked;
-            const orgNameInput = document.getElementById('organization_name');
-            const orgNameValue = orgNameInput.value.trim(); // .trim() で前後の空白を除去
-
     console.log('=== デバッグ開始 ===');
     console.log('1. own_policy要素:', ownPolicyElement);
     console.log('2. own_policyのチェック状態:', ownPolicyElement ? ownPolicyElement.checked : 'null');
