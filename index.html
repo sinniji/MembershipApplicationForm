@@ -231,6 +231,22 @@
             color: #666;
             margin-top: 5px;
         }
+        .section-note {
+            margin-bottom: 25px; /* 下のフォーム項目との隙間 */
+            padding: 15px;
+            background-color: #f9f9f9; /* 背景色 */
+            border: 1px solid #ddd;   /* 枠線 */
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333; /* 文字色 */
+        }
+        .section-note p {
+            margin: 0 0 5px 0; /* 段落ごとのマージン */
+        }
+        .section-note p:last-child {
+            margin-bottom: 0; /* 最後の段落はマージン不要 */
+        }
     </style>
 </head>
 <body>
@@ -430,7 +446,13 @@
             
             <!-- ボランティア申込書 -->
             <div class="section-title">ボランティア申込書</div>
-                  
+
+            <div class="section-note">
+                <p>※手話ボランティア活動の登録を希望する場合は、下記をご記入ください。</p>
+                <p>18歳以上の方で、奉仕員養成講座修了以上の方が対象となります。</p>
+                <p>詳しくは、各支部の支部長、もしくは、運営委員にお尋ください。</p>
+            </div>
+            
             <div class="form-group">
                 <label for="qualification_year">手話通訳者認定試験合格</label>
                 <div style="display: flex; gap: 10px; align-items: center;">
