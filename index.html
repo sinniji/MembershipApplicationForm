@@ -278,7 +278,7 @@
         
         <div id="message" class="message"></div>
         
-        <form id="membershipForm">
+        <form id="membershipForm"class="h-adr">
             <!-- 継続・新規 -->
             <div class="form-group">
                 <label for="status">継続・新規 *</label>
@@ -337,12 +337,12 @@
             </div>
             <!-- 郵便番号 -->
             <div class="form-field width-25"> <label for="postal">郵便番号 *</label>
-                <input type="text" id="postal" name="postal" class="text-required-input" placeholder="例: 123-4567" required>
+                <input type="text" id="postal" name="postal" class="text-required-input p-postal-code" placeholder="例: 123-4567" required>
             </div>
             <!-- 住所 -->
             <div class="form-group">
                 <label for="address1">住所 1 *</label>
-                <input type="text" id="address1" name="address1" class="text-required-input" required>
+                <input type="text" id="address1" name="address1" class="text-required-input p-region p-locality p-street-address" required>
             </div>
             
             <div class="form-group">
@@ -709,7 +709,7 @@
             <button type="submit" class="submit-btn" id="submitBtn">送信する</button>
         </form>
     </div>
-
+<script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
 <script>
         // GASのウェブアプリURLをここに設定してください
         const GAS_URL = 'https://script.google.com/macros/s/AKfycbzDNMouYtXS-ahYye6viBpEnvB__dnWwDHfaRFf5DkZ8boyviPRPTGWRMlmsM4nu2X_/exec';
