@@ -425,7 +425,7 @@
                     <div class="form-field width-25">
                         <label for="organization_name">団体名</label>
                     <input type="text" id="organization_name" name="organization_name" class="text-input" min="0" placeholder="加入団体名">
-                </div>   
+                    </div>   
 
                 </div>
             </div>
@@ -529,8 +529,9 @@
 
             <div class="form-field width-75">
                 <label for="request_relocation">（その他要望等あれば 例）駅にちかいところが良い等）</label>
-            <input type="text" id="request_relocation" name="request_relocation" class="text-input">
-
+                <input type="text" id="request_relocation" name="request_relocation" class="text-input">
+            </div>
+                
             <div class="form-group">
                 <label>これまでの手話ボランティア活動の経験</label>
                 <div class="checkbox-group">
@@ -678,7 +679,10 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="form-field width-75">
+                <input type="text" id="activity_etc" name="activity_etc" class="text-input" placeholder="その他入力欄">
+            </div>
+
             <button type="submit" class="submit-btn" id="submitBtn">送信する</button>
         </form>
     </div>
@@ -765,7 +769,8 @@
                 content_course: document.getElementById('content_course').checked,
                 content_school: document.getElementById('content_school').checked,
                 content_study: document.getElementById('content_study').checked,
-                content_other: document.getElementById('content_other').checked
+                content_other: document.getElementById('content_other').checked,
+                activity_etc: document.getElementById('activity_etc').checked
             };
             
             try {
