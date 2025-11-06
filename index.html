@@ -711,20 +711,27 @@
             const orgNameValue = orgNameInput.value.trim(); // .trim() で前後の空白を除去
 
             if (ownPolicyChecked && orgNameValue === '') {
-                // 「他団体で加入済み」にチェックがあり、かつ団体名が空の場合
-                messageDiv.textContent = '「他団体で加入済み」の場合、団体名は必須です。';
-                messageDiv.className = 'message error';
-                messageDiv.style.display = 'block';
-                
-                // 3秒後にメッセージを非表示
-                setTimeout(() => {
-                    messageDiv.style.display = 'none';
-                }, 3000);
-                
-                // 送信処理を中断 (ボタンはまだ無効化されていないので、そのまま return)
-                return; 
-            }
-            // --- ▲ ここまで追加 ---
+              // 「他団体で加入済み」にチェックがあり、かつ団体名が空の場合
+              
+              // ▼▼▼ 修正 1：alertを追加して、if文に入ったか確認 ▼▼▼
+              alert('バリデーションエラーを検知しました。');
+              // ▲▲▲
+              
+              messageDiv.textContent = '「他団体で加入済み」の場合、団体名は必須です。';
+              messageDiv.className = 'message error';
+              
+              // ▼▼▼ 修正 2：CSSを強制的に上書きして表示させる ▼▼▼
+              messageDiv.style.cssText = "display: block !important; color: red !important; background: yellow !important; padding: 10px !important; border: 1px solid red !important; z-index: 9999 !important;";
+              // ▲▲▲
+              
+              // 3秒後にメッセージを非表示 (デバッグ中は少し長めに 10000 = 10秒 にしてもOK)
+              setTimeout(() => {
+                  messageDiv.style.display = 'none';
+              }, 3000); 
+              
+              // 送信処理を中断
+              return; 
+          }            // --- ▲ ここまで追加 ---
 
             
             // バリデーション通過後にボタンを無効化
