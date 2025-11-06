@@ -716,7 +716,10 @@
               // ▼▼▼ 修正 1：alertを追加して、if文に入ったか確認 ▼▼▼
               alert('バリデーションエラーを検知しました。');
               // ▲▲▲
-              
+// 2. このログで messageDiv の中身をコンソールで確認します
+              console.log('--- デバッグ情報 ---');
+              console.log('messageDiv 変数の中身:', messageDiv);
+              // ▲▲▲ ここまで追加 ▲▲▲
               messageDiv.textContent = '「他団体で加入済み」の場合、団体名は必須です。';
               messageDiv.className = 'message error';
               
