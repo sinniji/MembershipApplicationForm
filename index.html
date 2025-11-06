@@ -119,6 +119,9 @@
             flex-basis: 75%;
         }        
         .dropdown {
+            background-color: #e0f7fa;
+        }
+        .dropdown-required {
             background-color: #fffacd;
         }
         
@@ -266,7 +269,7 @@
             <!-- 継続・新規 -->
             <div class="form-group">
                 <label for="status">継続・新規 *</label>
-                <select id="status" name="status" class="dropdown width-25" required>
+                <select id="status" name="status" class=".dropdown-required width-25" required>
                     <option value="">選択してください</option>
                     <option value="継続">継続</option>
                     <option value="新規">新規</option>
@@ -552,7 +555,7 @@
             
             <!-- 活動可能時間帯 -->
             <div class="form-group">
-                <label>活動可能時間帯（何曜日のいつにチェックを）</label>
+                <label>活動可能日（レ点を付けてください。）</label>
                 <div class="activity-table">
                     <div class="activity-row">
                         <span>午前</span>
