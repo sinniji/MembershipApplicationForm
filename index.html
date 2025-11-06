@@ -480,6 +480,8 @@
                 <label>資格</label>
                 <div class="section-note">
                     <p>※差し支えなければ有する資格にチェックを付けてください。</p>
+                    <p>↓救護や託児の手話ボラをお願いすることがあるかもしれません。</p>
+                    <p>ご協力の程、よろしくお願いいたします。</p>
                 </div>
                 <div class="checkbox-group">
                     <div class="checkbox-item">
@@ -520,15 +522,15 @@
                         <label for="transport_monorail">モノレール</label>
                     </div>
                 </div>
-
-
-                
                 <div class="section-note">
                     <p>※（その他要望等あれば例）駅にちかいところが良い等）</p>
                 </div>
-
-                    
             </div>
+
+            <div class="form-field width-50">
+                <label for="request_relocation">（その他要望等あれば例）駅にちかいところが良い等）</label>
+            <input type="text" id="request_relocation" name="request_relocation" class="text-input">
+
             
             <div class="form-group">
                 <label>これまでの手話ボランティア活動の経験</label>
@@ -735,6 +737,9 @@
                 transport_jr: document.getElementById('transport_jr').checked,
                 transport_bus: document.getElementById('transport_bus').checked,
                 transport_monorail: document.getElementById('transport_monorail').checked,
+
+                request_relocation: document.getElementById('request_relocation').checked,
+                
                 prev_experience_yes: document.getElementById('prev_experience_yes').checked,
                 prev_experience_no: document.getElementById('prev_experience_no').checked,
                 am_mon: document.getElementById('am_mon').checked,
