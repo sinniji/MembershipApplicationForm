@@ -697,157 +697,138 @@
         </form>
     </div>
 
-    <script>
-// GASのウェブアプリURLをここに設定してください
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbzDNMouYtXS-ahYye6viBpEnvB__dnWwDHfaRFf5DkZ8boyviPRPTGWRMlmsM4nu2X_/exec';
+<script>
+        // GASのウェブアプリURLをここに設定してください
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbzDNMouYtXS-ahYye6viBpEnvB__dnWwDHfaRFf5DkZ8boyviPRPTGWRMlmsM4nu2X_/exec';
+        
+        document.getElementById('membershipForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const messageDiv = document.getElementById('message');
+            
+            // --- ▼ ここから追加：送信前バリデーション ▼ ---
+            const ownPolicyChecked = document.getElementById('own_policy').checked;
+            const orgNameInput = document.getElementById('organization_name');
+            const orgNameValue = orgNameInput.value.trim(); // .trim() で前後の空白を除去
 
-document.getElementById('membershipForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    // ▼▼▼ 修正: まず変数を定義する ▼▼▼
-    const submitBtn = document.getElementById('submitBtn');
-    const messageDiv = document.getElementById('message');
-    const ownPolicyElement = document.getElementById('own_policy');
-    const orgNameInput = document.getElementById('organization_name');
-    
-    // 要素が取得できたか確認
-    if (!ownPolicyElement || !orgNameInput) {
-        alert('フォームの初期化エラーが発生しました');
-        return;
-    }
-    
-    const ownPolicyChecked = ownPolicyElement.checked;
-    const orgNameValue = orgNameInput.value.trim();
-    // ▲▲▲ 修正ここまで ▲▲▲
+            if (ownPolicyChecked && orgNameValue === '') {
+                alert('バリデーションエラーを検知しました。');
+                return; 
+            }
+            // --- ▲ ここまで追加 ---
+            
+            // バリデーション通過後にボタンを無効化
+            submitBtn.disabled = true;
+            submitBtn.textContent = '送信中...';
+            
+            // フォームデータを収集
+            const formData = {
+                timestamp: new Date().toISOString(),
+                status: document.getElementById('status').value,
+                branch: document.getElementById('branch').value,
+                furigana: document.getElementById('furigana').value,
+                gender: document.getElementById('gender').value,
+                name: document.getElementById('name').value,
+                age: document.getElementById('age').value,
+                postal: document.getElementById('postal').value,
+                address1: document.getElementById('address1').value,
+                address2: document.getElementById('address2').value,
+                phone: document.getElementById('phone').value,
+                fax: document.getElementById('fax').value,
+                email: document.getElementById('email').value,
+                category: document.getElementById('category').value,
+                deaf_family: document.getElementById('deaf_family').checked,
+                hop: document.getElementById('hop').checked,
+                step: document.getElementById('step').checked,
+                jump: document.getElementById('jump').checked,
+                experience_years: document.getElementById('experience_years').value,
+                other_experience: document.getElementById('other_experience').value,
+                new_policy: document.getElementById('new_policy').checked,
+                own_policy: document.getElementById('own_policy').checked,
+                organization_name: document.getElementById('organization_name').value,
+                contact_mail: document.getElementById('contact_mail').checked,
+                contact_fax: document.getElementById('contact_fax').checked,
+                contact_line: document.getElementById('contact_line').checked,
+                contact_no_line: document.getElementById('contact_no_line').checked,
+                qualification_year: document.getElementById('qualification_year').value,
+                qualification_city: document.getElementById('qualification_city').value,
+                registration_year: document.getElementById('registration_year').value,
+                nursing_license: document.getElementById('nursing_license').checked,
+                childcare_worker: document.getElementById('childcare_worker').checked,
+                teaching_license: document.getElementById('teaching_license').checked,
+                transport_car: document.getElementById('transport_car').checked,
+                transport_jr: document.getElementById('transport_jr').checked,
+                transport_bus: document.getElementById('transport_bus').checked,
+                transport_monorail: document.getElementById('transport_monorail').checked,
+                request_relocation: document.getElementById('request_relocation').value, 
+                prev_experience_yes: document.getElementById('prev_experience_yes').checked,
+                prev_experience_no: document.getElementById('prev_experience_no').checked,
+                am_mon: document.getElementById('am_mon').checked,
+                am_tue: document.getElementById('am_tue').checked,
+                am_wed: document.getElementById('am_wed').checked,
+                am_thu: document.getElementById('am_thu').checked,
+                am_fri: document.getElementById('am_fri').checked,
+                am_sat: document.getElementById('am_sat').checked,
+                am_sun: document.getElementById('am_sun').checked,
+                pm_mon: document.getElementById('pm_mon').checked,
+                pm_tue: document.getElementById('pm_tue').checked,
+                pm_wed: document.getElementById('pm_wed').checked,
+                pm_thu: document.getElementById('pm_thu').checked,
+                pm_fri: document.getElementById('pm_fri').checked,
+                pm_sat: document.getElementById('pm_sat').checked,
+                pm_sun: document.getElementById('pm_sun').checked,
+                activity_conditions: document.getElementById('activity_conditions').value,
+                activity_support: document.getElementById('activity_support').checked,
+                activity_interpretation: document.getElementById('activity_interpretation').checked,
+                activity_communication: document.getElementById('activity_communication').checked,
+                content_sports: document.getElementById('content_sports').checked,
+                content_exchange: document.getElementById('content_exchange').checked,
+                content_lecture: document.getElementById('content_lecture').checked,
+                content_course: document.getElementById('content_course').checked,
+                content_school: document.getElementById('content_school').checked,
+                content_study: document.getElementById('content_study').checked,
+                content_other: document.getElementById('content_other').checked,
+                // --- ▼ 修正点 2 ( .checked -> .value ) ▼ ---
+                activity_etc: document.getElementById('activity_etc').value 
+                // --- ▲ 修正点 2 ▲ ---
+            };
+            
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                // no-corsモードの場合、レスポンスを確認できないため成功とみなす
+                messageDiv.textContent = 'データを送信しました。';
+                messageDiv.className = 'message success';
+                messageDiv.style.display = 'block';
+                
+                // フォームをリセット
+                document.getElementById('membershipForm').reset();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                messageDiv.textContent = 'エラーが発生しました: ' + error.message;
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+            } finally {
+                // ボタンを再度有効化
+                submitBtn.disabled = false;
+                submitBtn.textContent = '送信する';
+                
+                // 3秒後にメッセージを非表示
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
 
-    // バリデーション
-    if (ownPolicyChecked && orgNameValue === '') {
-        alert('エラー: 「他団体で加入済み」の場合、団体名は必須です。\n\n団体名を入力してください。');
-        return;
-    }
-    
-    // バリデーション通過後にボタンを無効化
-    submitBtn.disabled = true;
-    submitBtn.textContent = '送信中...';
-    
-    // フォームデータを収集
-    const formData = {
-        timestamp: new Date().toISOString(),
-        status: document.getElementById('status').value,
-        branch: document.getElementById('branch').value,
-        furigana: document.getElementById('furigana').value,
-        gender: document.getElementById('gender').value,
-        name: document.getElementById('name').value,
-        age: document.getElementById('age').value,
-        postal: document.getElementById('postal').value,
-        address1: document.getElementById('address1').value,
-        address2: document.getElementById('address2').value,
-        phone: document.getElementById('phone').value,
-        fax: document.getElementById('fax').value,
-        email: document.getElementById('email').value,
-        category: document.getElementById('category').value,
-        deaf_family: document.getElementById('deaf_family').checked,
-        hop: document.getElementById('hop').checked,
-        step: document.getElementById('step').checked,
-        jump: document.getElementById('jump').checked,
-        experience_years: document.getElementById('experience_years').value,
-        other_experience: document.getElementById('other_experience').value,
-        new_policy: document.getElementById('new_policy').checked,
-        own_policy: ownPolicyChecked,
-        organization_name: orgNameValue,
-        contact_mail: document.getElementById('contact_mail').checked,
-        contact_fax: document.getElementById('contact_fax').checked,
-        contact_line: document.getElementById('contact_line').checked,
-        contact_no_line: document.getElementById('contact_no_line').checked,
-        qualification_year: document.getElementById('qualification_year').value,
-        qualification_city: document.getElementById('qualification_city').value,
-        registration_year: document.getElementById('registration_year').value,
-        nursing_license: document.getElementById('nursing_license').checked,
-        childcare_worker: document.getElementById('childcare_worker').checked,
-        teaching_license: document.getElementById('teaching_license').checked,
-        transport_car: document.getElementById('transport_car').checked,
-        transport_jr: document.getElementById('transport_jr').checked,
-        transport_bus: document.getElementById('transport_bus').checked,
-        transport_monorail: document.getElementById('transport_monorail').checked,
-        request_relocation: document.getElementById('request_relocation').value,
-        prev_experience_yes: document.getElementById('prev_experience_yes').checked,
-        prev_experience_no: document.getElementById('prev_experience_no').checked,
-        am_mon: document.getElementById('am_mon').checked,
-        am_tue: document.getElementById('am_tue').checked,
-        am_wed: document.getElementById('am_wed').checked,
-        am_thu: document.getElementById('am_thu').checked,
-        am_fri: document.getElementById('am_fri').checked,
-        am_sat: document.getElementById('am_sat').checked,
-        am_sun: document.getElementById('am_sun').checked,
-        pm_mon: document.getElementById('pm_mon').checked,
-        pm_tue: document.getElementById('pm_tue').checked,
-        pm_wed: document.getElementById('pm_wed').checked,
-        pm_thu: document.getElementById('pm_thu').checked,
-        pm_fri: document.getElementById('pm_fri').checked,
-        pm_sat: document.getElementById('pm_sat').checked,
-        pm_sun: document.getElementById('pm_sun').checked,
-        activity_conditions: document.getElementById('activity_conditions').value,
-        activity_support: document.getElementById('activity_support').checked,
-        activity_interpretation: document.getElementById('activity_interpretation').checked,
-        activity_communication: document.getElementById('activity_communication').checked,
-        content_sports: document.getElementById('content_sports').checked,
-        content_exchange: document.getElementById('content_exchange').checked,
-        content_lecture: document.getElementById('content_lecture').checked,
-        content_course: document.getElementById('content_course').checked,
-        content_school: document.getElementById('content_school').checked,
-        content_study: document.getElementById('content_study').checked,
-        content_other: document.getElementById('content_other').checked,
-        activity_etc: document.getElementById('activity_etc').value
-    };
-    
-    try {
-        const response = await fetch(GAS_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        });
-        
-        // ▼▼▼ 修正: messageDivが定義されているので使える ▼▼▼
-        if (messageDiv) {
-            messageDiv.textContent = 'データを送信しました。';
-            messageDiv.className = 'message success';
-            messageDiv.style.display = 'block';
-        } else {
-            alert('データを送信しました。');
-        }
-        // ▲▲▲ 修正ここまで ▲▲▲
-        
-        // フォームをリセット
-        document.getElementById('membershipForm').reset();
-        
-    } catch (error) {
-        console.error('Error:', error);
-        
-        // ▼▼▼ 修正: messageDivが定義されているので使える ▼▼▼
-        if (messageDiv) {
-            messageDiv.textContent = 'エラーが発生しました: ' + error.message;
-            messageDiv.className = 'message error';
-            messageDiv.style.display = 'block';
-        } else {
-            alert('エラーが発生しました: ' + error.message);
-        }
-        // ▲▲▲ 修正ここまで ▲▲▲
-    } finally {
-        // ボタンを再度有効化
-        submitBtn.disabled = false;
-        submitBtn.textContent = '送信する';
-        
-        // 3秒後にメッセージを非表示
-        if (messageDiv) {
-            setTimeout(() => {
-                messageDiv.style.display = 'none';
-            }, 3000);
-        }
-    }
-});
-    </script>
 </body>
 </html>
