@@ -765,6 +765,7 @@
             // フォームデータを収集
             const formData = {
                 timestamp: new Date().toISOString(),
+                new_membership: document.getElementById('new_membership').value,
                 status: document.getElementById('status').value,
                 branch: document.getElementById('branch').value,
                 furigana: document.getElementById('furigana').value,
