@@ -704,7 +704,29 @@
             const submitBtn = document.getElementById('submitBtn');
             const messageDiv = document.getElementById('message');
             
-            // ボタンを無効化
+            // --- ▼ ここから追加：送信前バリデーション ▼ ---
+            const ownPolicyChecked = document.getElementById('own_policy').checked;
+            const orgNameInput = document.getElementById('organization_name');
+            const orgNameValue = orgNameInput.value.trim(); // .trim() で前後の空白を除去
+
+            if (ownPolicyChecked && orgNameValue === '') {
+                // 「他団体で加入済み」にチェックがあり、かつ団体名が空の場合
+                messageDiv.textContent = '「他団体で加入済み」の場合、団体名は必須です。';
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+                
+                // 3秒後にメッセージを非表示
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 3000);
+                
+                // 送信処理を中断 (ボタンはまだ無効化されていないので、そのまま return)
+                return; 
+            }
+            // --- ▲ ここまで追加 ---
+
+            
+            // バリデーション通過後にボタンを無効化
             submitBtn.disabled = true;
             submitBtn.textContent = '送信中...';
             
@@ -747,7 +769,9 @@
                 transport_jr: document.getElementById('transport_jr').checked,
                 transport_bus: document.getElementById('transport_bus').checked,
                 transport_monorail: document.getElementById('transport_monorail').checked,
-                request_relocation: document.getElementById('request_relocation').checked,
+                // --- ▼ 修正点 1 ( .checked -> .value ) ▼ ---
+                request_relocation: document.getElementById('request_relocation').value, 
+                // --- ▲ 修正点 1 ▲ ---
                 prev_experience_yes: document.getElementById('prev_experience_yes').checked,
                 prev_experience_no: document.getElementById('prev_experience_no').checked,
                 am_mon: document.getElementById('am_mon').checked,
@@ -775,7 +799,9 @@
                 content_school: document.getElementById('content_school').checked,
                 content_study: document.getElementById('content_study').checked,
                 content_other: document.getElementById('content_other').checked,
-                activity_etc: document.getElementById('activity_etc').checked
+                // --- ▼ 修正点 2 ( .checked -> .value ) ▼ ---
+                activity_etc: document.getElementById('activity_etc').value 
+                // --- ▲ 修正点 2 ▲ ---
             };
             
             try {
