@@ -269,7 +269,7 @@
             <!-- 継続・新規 -->
             <div class="form-group">
                 <label for="status">継続・新規 *</label>
-                <select id="status" name="status" class=".dropdown-required width-25" required>
+                <select id="status" name="status" class="dropdown-required width-25" required>
                     <option value="">選択してください</option>
                     <option value="継続">継続</option>
                     <option value="新規">新規</option>
@@ -279,7 +279,7 @@
             <!-- 支部 -->
             <div class="form-group">
                 <label for="branch">支部 *</label>
-                <select id="branch" name="branch" class="dropdown width-50" required>
+                <select id="branch" name="branch" class="dropdown-required width-50" required>
                     <option value="">選択してください</option>
                     <option value="門司">門司</option>
                     <option value="小倉北">小倉北</option>
@@ -747,9 +747,7 @@
                 transport_jr: document.getElementById('transport_jr').checked,
                 transport_bus: document.getElementById('transport_bus').checked,
                 transport_monorail: document.getElementById('transport_monorail').checked,
-
                 request_relocation: document.getElementById('request_relocation').checked,
-                
                 prev_experience_yes: document.getElementById('prev_experience_yes').checked,
                 prev_experience_no: document.getElementById('prev_experience_no').checked,
                 am_mon: document.getElementById('am_mon').checked,
