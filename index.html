@@ -709,30 +709,9 @@
             const orgNameValue = orgNameInput.value.trim();
     
             if (ownPolicyChecked && orgNameValue === '') {
-                const messageDiv = document.getElementById('message');
-                
-                if (!messageDiv) {
-                    // message要素がない場合は、その場で作る
-                    const newMessage = document.createElement('div');
-                    newMessage.id = 'message';
-                    newMessage.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: red; color: white; padding: 30px; font-size: 20px; z-index: 999999; border: 5px solid black;';
-                    newMessage.textContent = '「他団体で加入済み」の場合、団体名は必須です。';
-                    document.body.appendChild(newMessage);
-                    
-                    setTimeout(() => {
-                        newMessage.remove();
-                    }, 3000);
-                } else {
-                    messageDiv.textContent = '「他団体で加入済み」の場合、団体名は必須です。';
-                    messageDiv.style.cssText = 'display: block !important; position: fixed !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; background: red !important; color: white !important; padding: 30px !important; font-size: 20px !important; z-index: 999999 !important; border: 5px solid black !important;';
-                    
-                    setTimeout(() => {
-                        messageDiv.style.display = 'none';
-                    }, 3000);
-                }
-                
+                window.confirm('エラー: 「他団体で加入済み」の場合、団体名は必須です。\n\n団体名を入力してください。');
                 return;
-            }
+            }            
             
             // バリデーション通過後にボタンを無効化
             submitBtn.disabled = true;
