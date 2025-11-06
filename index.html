@@ -471,7 +471,6 @@
                 </div>
             </div>
 
-
             <div class="form-group">
                 <label>資格</label>
                 <div class="section-note">
@@ -479,20 +478,19 @@
                 </div>
                 <div class="checkbox-group">
                     <div class="checkbox-item">
-                        <input type="checkbox" id="Nursing_license" name="Nursing_license">
-                        <label for="Nursing_license">看護師免許</label>
+                        <input type="checkbox" id="nursing_license" name="nursing_license">
+                        <label for="nursing_license">看護師免許</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" id="Childcare_worker" name="Childcare_worker">
-                        <label for="Childcare_worker">保育士・幼稚園教諭免許</label>
+                        <input type="checkbox" id="childcare_worker" name="childcare_worker">
+                        <label for="childcare_worker">保育士・幼稚園教諭免許</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" id="Teaching_license" name="Teaching_license">
-                        <label for="Teaching_license">教員免許</label>
+                        <input type="checkbox" id="teaching_license" name="teaching_license">
+                        <label for="teaching_license">教員免許</label>
                     </div>
                 </div>
             </div>
-
             
             <div class="form-group">
                 <label>移動手段</label>
@@ -710,6 +708,9 @@
                 qualification_year: document.getElementById('qualification_year').value,
                 qualification_city: document.getElementById('qualification_city').value,
                 registration_year: document.getElementById('registration_year').value,
+                nursing_license: document.getElementById('nursing_license').checked,
+                childcare_worker: document.getElementById('childcare_worker').checked,
+                teaching_license: document.getElementById('teaching_license').checked,
                 transport_car: document.getElementById('transport_car').checked,
                 transport_jr: document.getElementById('transport_jr').checked,
                 transport_bus: document.getElementById('transport_bus').checked,
