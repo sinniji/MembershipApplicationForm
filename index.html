@@ -713,7 +713,7 @@
             const orgNameValue = orgNameInput.value.trim(); // .trim() で前後の空白を除去
 
             if (ownPolicyChecked && orgNameValue === '') {
-                alert('バリデーションエラーを検知しました。');
+                alert('他団体で加入済みの場合、加入団体名は必須です。');
                 return; 
             }
             // --- ▲ ここまで追加 ---
