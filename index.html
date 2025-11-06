@@ -419,6 +419,11 @@
                         <input type="checkbox" id="own_policy" name="own_policy">
                         <label for="own_policy">他団体で加入済み</label>
                     </div>
+                    <div class="form-field width-25">
+                        <label for="organization_name">団体名</label>
+                    <input type="number" id="organization_name" name="organization_name" class="text-input" min="0">
+                </div>   
+
                 </div>
             </div>
             
@@ -715,6 +720,7 @@
                 other_experience: document.getElementById('other_experience').value,
                 new_policy: document.getElementById('new_policy').checked,
                 own_policy: document.getElementById('own_policy').checked,
+                organization_name: document.getElementById('organization_name').value,
                 contact_mail: document.getElementById('contact_mail').checked,
                 contact_fax: document.getElementById('contact_fax').checked,
                 contact_line: document.getElementById('contact_line').checked,
