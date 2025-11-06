@@ -313,23 +313,23 @@
             
                 <div class="form-field width-75">
                     <label for="name">氏名 *</label>
-                    <input type="text" id="name" name="name" class="text-required-input">
+                    <input type="text" id="name" name="name" class="text-required-input" required>
                 </div>
                 
                 <div class="form-field width-25">
                     <label for="age">年齢 *</label>
-                    <input type="number" id="age" name="age" class="text-required-input" min="0">
+                    <input type="number" id="age" name="age" class="text-required-input" min="0" required>
                 </div>   
                 
             </div>
             <!-- 郵便番号 -->
             <div class="form-field width-25"> <label for="postal">郵便番号 *</label>
-                <input type="text" id="postal" name="postal" class="text-required-input" placeholder="例: 123-4567">
+                <input type="text" id="postal" name="postal" class="text-required-input" placeholder="例: 123-4567" required>
             </div>
             <!-- 住所 -->
             <div class="form-group">
                 <label for="address1">住所 1 *</label>
-                <input type="text" id="address1" name="address1" class="text-required-input">
+                <input type="text" id="address1" name="address1" class="text-required-input" required>
             </div>
             
             <div class="form-group">
@@ -340,7 +340,7 @@
             <!-- 電話 -->
             <div class="form-group">
                 <label for="phone">電話 *</label>
-                <input type="text" id="phone" name="phone" class="text-required-input">
+                <input type="text" id="phone" name="phone" class="text-required-input" required>
             </div>
             
             <!-- FAX -->
@@ -358,7 +358,7 @@
             <!-- 区分 -->
             <div class="form-group">
                 <label for="category">区分</label>
-                <select id="category" name="category" class="dropdown width-50" required>
+                <select id="category" name="category" class="dropdown width-50">
                     <option value="">選択してください</option>
                     <option value="小学生">小学生</option>
                     <option value="中学生">中学生</option>
