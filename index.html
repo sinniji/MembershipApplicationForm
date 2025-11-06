@@ -703,62 +703,61 @@
         document.getElementById('membershipForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const submitBtn = document.getElementById('submitBtn');
-            const messageDiv = document.getElementById('message');
-            
-            // --- ▼ ここから追加：送信前バリデーション ▼ ---
+    const submitBtn = document.getElementById('submitBtn');
+    const messageDiv = document.getElementById('message');
+    
+    // ▼ まず変数を定義（この順序が重要）
+    const ownPolicyElement = document.getElementById('own_policy');
+    const orgNameInput = document.getElementById('organization_name');
+    
+    // ▼ 定義した後でコンソールログを出力
     console.log('=== デバッグ開始 ===');
     console.log('1. own_policy要素:', ownPolicyElement);
-    console.log('2. own_policyのチェック状態:', ownPolicyElement ? ownPolicyElement.checked : 'null');
-    console.log('3. organization_name要素:', orgNameInput);
-    console.log('4. organization_nameの値:', orgNameInput ? orgNameInput.value : 'null');
-    console.log('5. trim後の値:', orgNameInput ? orgNameInput.value.trim() : 'null');
+    console.log('2. organization_name要素:', orgNameInput);
+    
+    // 要素が存在しない場合のエラーチェック
+    if (!ownPolicyElement) {
+        console.error('own_policy要素が見つかりません');
+        alert('エラー: チェックボックス(own_policy)が見つかりません');
+        return;
+    }
+    
+    if (!orgNameInput) {
+        console.error('organization_name要素が見つかりません');
+        alert('エラー: 入力欄(organization_name)が見つかりません');
+        return;
+    }
     
     const ownPolicyChecked = ownPolicyElement.checked;
     const orgNameValue = orgNameInput.value.trim();
     
-    console.log('6. ownPolicyChecked:', ownPolicyChecked);
-    console.log('7. orgNameValue:', orgNameValue);
-    console.log('8. orgNameValue === "":', orgNameValue === '');
-    console.log('9. 条件判定結果:', ownPolicyChecked && orgNameValue === '');
+    console.log('3. ownPolicyChecked:', ownPolicyChecked);
+    console.log('4. orgNameValue:', orgNameValue);
+    console.log('5. 条件判定:', ownPolicyChecked && orgNameValue === '');
     
     if (ownPolicyChecked && orgNameValue === '') {
-        console.log('10. ★★★ if文の中に入りました ★★★');
-        
-        // messageDiv の詳細情報を取得
-        console.log('11. messageDiv:', messageDiv);
-        console.log('12. messageDivの親要素:', messageDiv.parentElement);
-        console.log('13. 現在のdisplay:', window.getComputedStyle(messageDiv).display);
-        console.log('14. 現在のvisibility:', window.getComputedStyle(messageDiv).visibility);
-        console.log('15. 現在の位置(top/left):', window.getComputedStyle(messageDiv).top, window.getComputedStyle(messageDiv).left);
+        console.log('★★★ バリデーションエラー検知 ★★★');
         
         messageDiv.textContent = '「他団体で加入済み」の場合、団体名は必須です。';
-        console.log('16. textContent設定後:', messageDiv.textContent);
-        
         messageDiv.className = 'message error';
-        console.log('17. className設定後:', messageDiv.className);
         
-        messageDiv.style.display = 'block';
-        console.log('18. style.display設定後:', messageDiv.style.display);
-        console.log('19. 計算後のdisplay:', window.getComputedStyle(messageDiv).display);
+        // 超目立つスタイル
+        messageDiv.style.cssText = 'display: block !important; visibility: visible !important; background-color: red !important; color: white !important; padding: 20px !important; font-size: 20px !important; border: 5px solid black !important; margin: 20px 0 !important;';
         
-        // さらに強力な表示設定
-        messageDiv.style.cssText = 'display: block !important; visibility: visible !important; position: relative !important; z-index: 9999 !important; background-color: red !important; color: white !important; padding: 20px !important; font-size: 20px !important; border: 5px solid black !important;';
-        
-        console.log('20. cssText設定後のdisplay:', window.getComputedStyle(messageDiv).display);
-        console.log('21. messageDivの位置情報:', messageDiv.getBoundingClientRect());
-        
-        alert('エラーメッセージを表示しました。画面を確認してください。');
+        console.log('メッセージ表示完了');
+        alert('エラーメッセージを表示しました');
         
         setTimeout(() => {
             messageDiv.style.display = 'none';
-        }, 10000); // 10秒に延長
+        }, 10000);
         
         return;
     }
     
-    console.log('22. バリデーション通過 - 通常の送信処理へ');
-    // --- デバッグ終了 ---            
+    console.log('バリデーション通過');
+    // --- デバッグ終了 ---       
+
+            
             // バリデーション通過後にボタンを無効化
             submitBtn.disabled = true;
             submitBtn.textContent = '送信中...';
