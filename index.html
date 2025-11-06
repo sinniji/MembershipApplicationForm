@@ -715,9 +715,22 @@
             const orgNameValue = orgNameInput.value.trim(); // .trim() で前後の空白を除去
 
             if (ownPolicyChecked && orgNameValue === '') {
-                alert('他団体で加入済みの場合、加入団体名は必須です。');
-                return; 
-            }
+                // alert('バリデーションエラーを検知しました。');
+                // return; 
+                
+                // ↓ 改善案
+                messageDiv.textContent = '「他団体で加入済み」を選択した場合は、「団体名」を入力してください。';
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+                orgNameInput.focus(); // 該当の入力欄にフォーカス
+                
+                // メッセージを数秒後に消す
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 3000);
+                
+                return;
+            }
             // --- ▲ ここまで追加 ---
             
             // バリデーション通過後にボタンを無効化
