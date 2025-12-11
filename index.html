@@ -269,6 +269,29 @@
         legend {
             font-weight: normal;
         }
+
+        /* --- スマホ対応用（画面幅が600px以下のときの設定） --- */
+        @media (max-width: 600px) {
+            /* スマホでは幅指定を解除して、強制的に横幅いっぱいに広げる */
+            .width-25, 
+            .width-50, 
+            .width-75 {
+                width: 100% !important;
+                flex-basis: 100% !important;
+                max-width: 100% !important;
+            }
+
+            /* 横並び（flex）を解除して、縦並びにする */
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+    
+            /* 入力欄の下の隙間を少し調整 */
+            .form-field {
+                margin-bottom: 20px;
+            }
+        }
         
     </style>
 </head>
