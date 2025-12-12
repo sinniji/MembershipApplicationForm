@@ -35,7 +35,7 @@
         .section-title { text-align: center; margin-top: 30px; margin-bottom: 30px; color: #333; font-size: 22px; font-weight: bold; }
         hr.section-divider { border: 0; height: 1px; background-color: #ddd; margin: 40px 0; }
         
-        .submit-btn { width: 100%; padding: 15px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 30px; }
+        .submit-btn { width: 100%; padding: 15px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
         .submit-btn:hover { background-color: #45a049; }
         .submit-btn:disabled { background-color: #ccc; cursor: not-allowed; }
         
@@ -49,6 +49,9 @@
         
         .checkbox-item label { font-weight: normal; }
         legend { font-weight: normal; }
+        
+        /* --- 追加スタイル: 注意書き用 --- */
+        .notice-text { color: #d32f2f; font-weight: bold; font-size: 0.95em; margin-top: 20px; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -148,10 +151,9 @@
             </div>
             
             <div class="form-group">
-                <label for="email">Mail</label>
-                <input type="email" id="email" name="email" class="text-input">
+                <label for="email">Mail *</label>
+                <input type="email" id="email" name="email" class="text-required-input" required>
             </div>
-            
             <div class="form-group">
                 <label for="category">区分</label>
                 <select id="category" name="category" class="dropdown width-50">
@@ -256,6 +258,10 @@
                 </div>
             </div>
             
+            <div class="notice-text">
+                <p>※送信後、入力されたメールアドレス宛に必ず自動返信メールが届きます。<br>
+                届かない場合は、メールアドレスの誤りや迷惑メール設定をご確認ください。</p>
+            </div>
             <button type="submit" class="submit-btn" id="submitBtn">送信する</button>
         </form>
     </div>
@@ -336,7 +342,7 @@
                     body: JSON.stringify(formData)
                 });
                 
-                messageDiv.textContent = 'データを送信しました。';
+                messageDiv.textContent = 'データを送信しました。自動返信メールをご確認ください。';
                 messageDiv.className = 'message success';
                 messageDiv.style.display = 'block';
                 
@@ -353,7 +359,7 @@
                 
                 setTimeout(() => {
                     messageDiv.style.display = 'none';
-                }, 3000);
+                }, 5000);
             }
         });
     </script>
