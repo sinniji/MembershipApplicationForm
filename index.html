@@ -5,271 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>入会申込書</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* --- CSSは変更ありませんが、そのまま利用できるように記載します --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; padding: 20px; background-color: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { text-align: center; margin-bottom: 30px; color: #333; font-size: 24px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        
+        input[type="text"], input[type="email"], input[type="number"], select, textarea {
+            width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box;
         }
         
-        body {
-            font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
+        .form-field { margin-bottom: 16px; }
+        .form-row { display: flex; gap: 16px; margin-bottom: 16px; }
+        .width-25 { flex-basis: 25%; }
+        .width-50 { flex-basis: 50%; }        
+        .width-75 { flex-basis: 75%; }        
+        .dropdown { background-color: #e0f7fa; }
+        .dropdown-required { background-color: #fffacd; }
+        .text-input { background-color: #e0f7fa; }
+        .text-required-input { background-color: #fffacd; }
         
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+        .checkbox-group { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 10px; }
+        .vertical-items { flex-direction: column; align-items: flex-start; }
+        .checkbox-item { display: flex; align-items: center; gap: 5px; }
+        input[type="checkbox"] { width: 18px; height: 18px; }
         
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-            font-size: 24px;
-        }
+        .section-title { text-align: center; margin-top: 30px; margin-bottom: 30px; color: #333; font-size: 22px; font-weight: bold; }
+        hr.section-divider { border: 0; height: 1px; background-color: #ddd; margin: 40px 0; }
         
-        .form-group {
-            margin-bottom: 20px;
-        }
+        .submit-btn { width: 100%; padding: 15px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 30px; }
+        .submit-btn:hover { background-color: #45a049; }
+        .submit-btn:disabled { background-color: #ccc; cursor: not-allowed; }
         
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-
-        .width-25 {
-            width: 25%;
-        }
-        .width-50 {
-            width: 50%;
-        }
-        input[type="text"],
-        input[type="email"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%; /* ← これは「親要素の幅に合わせる」という意味になる */
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            /* box-sizing: border-box; を追加すると、
-              padding が width に含まれるようになり、レイアウトが崩れにくくなります 
-            */
-            box-sizing: border-box; 
-        }
+        .message { padding: 15px; margin: 20px 0; border-radius: 4px; display: none; }
+        .message.success { display: block; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .message.error { display: block; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
         
-        /* --- レイアウト用のCSS --- */
+        .section-note { margin-bottom: 25px; padding: 15px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; line-height: 1.6; color: #333; }
+        .section-note p { margin: 0 0 5px 0; }
+        .section-note p:last-child { margin-bottom: 0; }
         
-        /* ラベルのスタイル (例) */ 
-        label {
-            display: block; /* inputの上に表示 */
-            margin-bottom: 4px;
-            font-weight: bold;
-        }
-        
-        /* フォームの各項目を包むラッパー */
-        .form-field {
-            margin-bottom: 16px; /* 項目間の縦の隙間 */
-        }
-        
-        /* 横並びにするための親ラッパー */
-        .form-row {
-            display: flex;       /* 子要素を横並びにする */
-            gap: 16px;           /* 子要素間の隙間 (例: 16px) */
-            margin-bottom: 16px; /* 次の行との隙間 */
-        }
-        
-        /* 入力欄と単位を横並びにする */
-        .input-with-unit {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        /* 入力欄の幅を調整 */
-        .input-with-unit .text-input {
-            flex: 1;
-        }
-        
-        /* ラベルと入力欄の間に余白を追加 */
-        .form-field label {
-            display: block;
-            margin-bottom: 8px;
-        }
-        
-        /* 幅を制御するクラス (親のdivに適用) */
-        .width-75 {
-            flex-basis: 75%; /* Flexbox内での幅の割合 */
-        }
-        .width-25 {
-            flex-basis: 25%;
-        }
-        .width-50 {
-            flex-basis: 50%;
-        }        
-        .width-75 {
-            flex-basis: 75%;
-        }        
-        .dropdown {
-            background-color: #e0f7fa;
-        }
-        .dropdown-required {
-            background-color: #fffacd;
-        }
-        
-        .text-input {
-            background-color: #e0f7fa;
-        }
-
-        .text-required-input {
-            background-color: #fffacd;
-        }
-        
-        .checkbox-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .vertical-items {
-            flex-direction: column; /* 子要素を縦方向に並べる */
-            align-items: flex-start; /* 縦並びの際に左揃えにする */
-        }
-        
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-        }
-        
-        .row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        
-        .section-title {
-            text-align: center;      /* 中央揃え */
-            margin-top: 30px;        /* 上の線との隙間 */
-            margin-bottom: 30px;     /* 下の項目との隙間 */
-            color: #333;
-            font-size: 22px;         /* h1より少し小さめに */
-            font-weight: bold;
-        }
-
-        hr.section-divider {
-            border: 0;
-            height: 1px;
-            background-color: #ddd;  /* 線の色 */
-            margin: 40px 0;          /* 上下のマージンをしっかり取る */
-        }
-        
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 30px;
-        }
-        
-        .submit-btn:hover {
-            background-color: #45a049;
-        }
-        
-        .submit-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        
-        .message {
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-            display: none;
-        }
-        
-        .message.success {
-            display: block;
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .message.error {
-            display: block;
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
-        .activity-table {
-            margin-top: 15px;
-        }
-        
-        .activity-row {
-            display: grid;
-            grid-template-columns: 100px 1fr;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-        
-        textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-        
-        .note {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-        }
-        .section-note {
-            margin-bottom: 25px; /* 下のフォーム項目との隙間 */
-            padding: 15px;
-            background-color: #f9f9f9; /* 背景色 */
-            border: 1px solid #ddd;   /* 枠線 */
-            border-radius: 4px;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #333; /* 文字色 */
-        }
-        .section-note p {
-            margin: 0 0 5px 0; /* 段落ごとのマージン */
-        }
-        .section-note p:last-child {
-            margin-bottom: 0; /* 最後の段落はマージン不要 */
-        }
-
-        /* チェックボックス横のラベルの太さを普通に戻す */
-        .checkbox-item label {
-            font-weight: normal;
-        }
-        
-        /* 「通訳者養成講座終了」のようなグループ見出し（legendタグ）も普通に戻す */
-        legend {
-            font-weight: normal;
-        }
-
+        .checkbox-item label { font-weight: normal; }
+        legend { font-weight: normal; }
     </style>
 </head>
 <body>
@@ -293,7 +72,6 @@
         
         <form id="membershipForm" class="h-adr">
         <input type="hidden" class="p-country-name" value="Japan">
-            <!-- 継続・新規 -->
             <div class="form-group">
                 <label for="status">継続・新規 *</label>
                 <select id="status" name="status" class="dropdown-required width-25" required>
@@ -303,7 +81,6 @@
                 </select>
             </div>
             
-            <!-- 支部 -->
             <div class="form-group">
                 <label for="branch">支部 *</label>
                 <select id="branch" name="branch" class="dropdown-required width-50" required>
@@ -320,7 +97,6 @@
                 </select>
             </div>
             
-            <!-- ふりがな・氏名 -->
             <div class="form-row"> 
                 <div class="form-field width-75"> <label for="furigana">ふりがな *</label>
                     <input type="text" id="furigana" name="furigana" class="text-required-input" required>
@@ -335,7 +111,6 @@
                 </div>
             
             </div>            
-            <!-- 氏名・年齢 -->
             <div class="form-row">
             
                 <div class="form-field width-75">
@@ -346,14 +121,12 @@
                 <div class="form-field width-25">
                     <label for="age">年齢 *</label>
                     <input type="number" id="age" name="age" class="text-required-input" min="0" required>
-                </div>   
+                </div>    
                 
             </div>
-            <!-- 郵便番号 -->
             <div class="form-field width-50" style="min-width: 100px;"> <label for="postal">郵便番号 *</label>
                 <input type="text" id="postal" name="postal" class="text-required-input p-postal-code" placeholder="例: 123-4567" required>
             </div>
-            <!-- 住所 -->
             <div class="form-group">
                 <label for="address1">住所 1 *</label>
                 <input type="text" id="address1" name="address1" class="text-required-input p-region p-locality p-street-address" required>
@@ -364,25 +137,21 @@
                 <input type="text" id="address2" name="address2" class="text-input">
             </div>
             
-            <!-- 電話 -->
             <div class="form-group">
                 <label for="phone">電話 *</label>
                 <input type="text" id="phone" name="phone" class="text-required-input" required>
             </div>
             
-            <!-- FAX -->
             <div class="form-group">
                 <label for="fax">FAX</label>
                 <input type="text" id="fax" name="fax" class="text-input">
             </div>
             
-            <!-- Mail -->
             <div class="form-group">
                 <label for="email">Mail</label>
                 <input type="email" id="email" name="email" class="text-input">
             </div>
             
-            <!-- 区分 -->
             <div class="form-group">
                 <label for="category">区分</label>
                 <select id="category" name="category" class="dropdown width-50">
@@ -398,7 +167,6 @@
                 </select>
             </div>
             
-            <!-- 手話歴 -->
             <div class="form-group">
                 <label>手話歴</label>
                 <div class="checkbox-group vertical-items">
@@ -447,7 +215,6 @@
                 </div>
             </div>
             
-            <!-- ボランティア保険 -->
             <div class="form-group"> 
                 <label>ボランティア保険</label> 
                 <div class="checkbox-group"> 
@@ -462,7 +229,7 @@
                     <div class="form-field width-25">
                         <label for="organization_name">団体名</label>
                     <input type="text" id="organization_name" name="organization_name" class="text-input" placeholder="加入団体名">
-                    </div>   
+                    </div>    
 
                 </div>
             </div>
@@ -487,387 +254,109 @@
                         <label for="contact_no_line">どれも希望しない</label>
                     </div>
                 </div>
-            </div>　<hr class="section-divider">
-            
-            <!-- ボランティア申込書 -->
-            <div class="section-title">ボランティア申込書</div>
-
-            <div class="section-note">
-                <p>※手話ボランティア活動の登録を希望する場合は、下記をご記入ください。</p>
-                <p>18歳以上の方で、奉仕員養成講座修了以上の方が対象となります。</p>
-                <p>詳しくは、各支部の支部長、もしくは、運営委員にお尋ください。</p>
             </div>
             
-            <div class="form-group">
-                <label for="qualification_year">手話通訳者認定試験合格</label>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="text" id="qualification_year" name="qualification_year" class="text-input" style="width: 100px;">
-                    <span>年</span>
-                    <input type="text" id="qualification_city" name="qualification_city" class="text-input" style="width: 150px;" aria-label="手話通訳者認定試験合格（市）">
-                    <span>市</span>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="registration_year">手話通訳士合格</label>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="text" id="registration_year" name="registration_year" class="text-input" style="width: 100px;">
-                    <span>年</span>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>資格</label>
-                <div class="section-note">
-                    <p>※差し支えなければ有する資格にチェックを付けてください。</p>
-                    <p>↓救護や託児の手話ボラをお願いすることがあるかもしれません。</p>
-                    <p>ご協力の程、よろしくお願いいたします。</p>
-                </div>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="nursing_license" name="nursing_license">
-                        <label for="nursing_license">看護師免許</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="childcare_worker" name="childcare_worker">
-                        <label for="childcare_worker">保育士・幼稚園教諭免許</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="teaching_license" name="teaching_license">
-                        <label for="teaching_license">教員免許</label>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label>移動手段</label>
-                <div class="section-note">
-                    <p>※以下、可能なもの全てにレ点を付けてください。</p>
-                </div>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="transport_car" name="transport_car">
-                        <label for="transport_car">自家用車</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="transport_jr" name="transport_jr">
-                        <label for="transport_jr">JR</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="transport_bus" name="transport_bus">
-                        <label for="transport_bus">バス（西鉄・市営）</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="transport_monorail" name="transport_monorail">
-                        <label for="transport_monorail">モノレール</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-field width-75">
-                <label for="request_relocation">（その他要望等あれば 例）駅にちかいところが良い等）</label>
-                <input type="text" id="request_relocation" name="request_relocation" class="text-input">
-            </div>
-                
-            <div class="form-group">
-                <label>これまでの手話ボランティア活動の経験</label>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="prev_experience_yes" name="prev_experience_yes">
-                        <label for="prev_experience_yes">有り</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="prev_experience_no" name="prev_experience_no">
-                        <label for="prev_experience_no">無し</label>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 活動可能時間帯 -->
-            <div class="form-group">
-                <label>活動可能日（レ点を付けてください。）</label>
-                <div class="activity-table">
-                    <div class="activity-row">
-                        <span>午前</span>
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="am_mon" name="am_mon">
-                                <label for="am_mon">月</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="am_tue" name="am_tue">
-                                <label for="am_tue">火</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="am_wed" name="am_wed">
-                                <label for="am_wed">水</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="am_thu" name="am_thu">
-                                <label for="am_thu">木</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="am_fri" name="am_fri">
-                                <label for="am_fri">金</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="am_sat" name="am_sat">
-                                <label for="am_sat">土</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="am_sun" name="am_sun">
-                                <label for="am_sun">日</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="activity-row">
-                        <span>午後</span>
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="pm_mon" name="pm_mon">
-                                <label for="pm_mon">月</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="pm_tue" name="pm_tue">
-                                <label for="pm_tue">火</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="pm_wed" name="pm_wed">
-                                <label for="pm_wed">水</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="pm_thu" name="pm_thu">
-                                <label for="pm_thu">木</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="pm_fri" name="pm_fri">
-                                <label for="pm_fri">金</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="pm_sat" name="pm_sat">
-                                <label for="pm_sat">土</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="pm_sun" name="pm_sun">
-                                <label for="pm_sun">日</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="activity_conditions">活動可能な時間等具体的にお書きください</label>
-                <textarea id="activity_conditions" name="activity_conditions" class="text-input"></textarea>
-            </div>
-            
-            <!-- やってみたい手話ボランティア活動 -->
-            <div class="form-group">
-                <div class="section-note">
-                    <p>※以下、希望するものすべてにレ点を付けてください。</p>
-                </div>
-                <label>やってみたい手話ボランティア活動（形式）</label>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="activity_support" name="activity_support">
-                        <label for="activity_support">サポート</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="activity_interpretation" name="activity_interpretation">
-                        <label for="activity_interpretation">交流</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="activity_communication" name="activity_communication">
-                        <label for="activity_communication">通訳</label>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label>やってみたい手話ボランティア活動（内容）</label>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="content_sports" name="content_sports">
-                        <label for="content_sports">スポーツ</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="content_exchange" name="content_exchange">
-                        <label for="content_exchange">交流会</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="content_lecture" name="content_lecture">
-                        <label for="content_lecture">施設訪問</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="content_course" name="content_course">
-                        <label for="content_course">講座</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="content_school" name="content_school">
-                        <label for="content_school">学校関係</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="content_study" name="content_study">
-                        <label for="content_study">研修会</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="content_other" name="content_other">
-                        <label for="content_other">その他</label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-field width-75">
-                <input type="text" id="activity_etc" name="activity_etc" class="text-input" placeholder="その他入力欄"aria-label="やってみたい手話ボランティア活動（内容） その他の具体的な内容">
-            </div>
-
             <button type="submit" class="submit-btn" id="submitBtn">送信する</button>
         </form>
     </div>
 <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
 <script>
-        // GASのウェブアプリURLをここに設定してください
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbzDNMouYtXS-ahYye6viBpEnvB__dnWwDHfaRFf5DkZ8boyviPRPTGWRMlmsM4nu2X_/exec';
-        
-        document.getElementById('membershipForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const messageDiv = document.getElementById('message');
-            
-            // --- ▼ ここから追加：送信前バリデーション ▼ ---
-            const ownPolicyChecked = document.getElementById('own_policy').checked;
-            const orgNameInput = document.getElementById('organization_name');
-            const orgNameValue = orgNameInput.value.trim(); // .trim() で前後の空白を除去
+        // GASのウェブアプリURLをここに設定してください
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbzDNMouYtXS-ahYye6viBpEnvB__dnWwDHfaRFf5DkZ8boyviPRPTGWRMlmsM4nu2X_/exec';
+        
+        document.getElementById('membershipForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const messageDiv = document.getElementById('message');
+            
+            // --- ▼ ここから追加：送信前バリデーション ▼ ---
+            const ownPolicyChecked = document.getElementById('own_policy').checked;
+            const orgNameInput = document.getElementById('organization_name');
+            const orgNameValue = orgNameInput.value.trim();
 
-            if (ownPolicyChecked && orgNameValue === '') {
-                // alert('バリデーションエラーを検知しました。');
-                // return; 
-                
-                // ↓ 改善案
+            if (ownPolicyChecked && orgNameValue === '') {
                 messageDiv.textContent = '「他団体で加入済み」を選択した場合は、「団体名」を入力してください。';
                 messageDiv.className = 'message error';
                 messageDiv.style.display = 'block';
-                orgNameInput.focus(); // 該当の入力欄にフォーカス
+                orgNameInput.focus();
                 
-                // メッセージを数秒後に消す
                 setTimeout(() => {
                     messageDiv.style.display = 'none';
                 }, 3000);
                 
                 return;
             }
-            // --- ▲ ここまで追加 ---
-            
-            // バリデーション通過後にボタンを無効化
-            submitBtn.disabled = true;
-            submitBtn.textContent = '送信中...';
-            
-            // フォームデータを収集
-            const formData = {
-                timestamp: new Date().toISOString(),
+            // --- ▲ ここまで追加 ---
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = '送信中...';
+            
+            // フォームデータを収集
+            // ボランティア詳細（qualification_year以降）を削除しました
+            const formData = {
+                timestamp: new Date().toISOString(),
                 new_membership: document.getElementById('new_membership').value,
-                status: document.getElementById('status').value,
-                branch: document.getElementById('branch').value,
-                furigana: document.getElementById('furigana').value,
-                gender: document.getElementById('gender').value,
-                name: document.getElementById('name').value,
-                age: document.getElementById('age').value,
-                postal: document.getElementById('postal').value,
-                address1: document.getElementById('address1').value,
-                address2: document.getElementById('address2').value,
-                phone: document.getElementById('phone').value,
-                fax: document.getElementById('fax').value,
-                email: document.getElementById('email').value,
-                category: document.getElementById('category').value,
-                training_course: document.getElementById('training_course').checked,
-                hop: document.getElementById('hop').checked,
-                step: document.getElementById('step').checked,
-                jump: document.getElementById('jump').checked,
-                experience_years: document.getElementById('experience_years').value,
-                other_experience: document.getElementById('other_experience').value,
-                new_policy: document.getElementById('new_policy').checked,
-                own_policy: document.getElementById('own_policy').checked,
-                organization_name: document.getElementById('organization_name').value,
-                contact_mail: document.getElementById('contact_mail').checked,
-                contact_fax: document.getElementById('contact_fax').checked,
-                contact_line: document.getElementById('contact_line').checked,
-                contact_no_line: document.getElementById('contact_no_line').checked,
-                qualification_year: document.getElementById('qualification_year').value,
-                qualification_city: document.getElementById('qualification_city').value,
-                registration_year: document.getElementById('registration_year').value,
-                nursing_license: document.getElementById('nursing_license').checked,
-                childcare_worker: document.getElementById('childcare_worker').checked,
-                teaching_license: document.getElementById('teaching_license').checked,
-                transport_car: document.getElementById('transport_car').checked,
-                transport_jr: document.getElementById('transport_jr').checked,
-                transport_bus: document.getElementById('transport_bus').checked,
-                transport_monorail: document.getElementById('transport_monorail').checked,
-                request_relocation: document.getElementById('request_relocation').value, 
-                prev_experience_yes: document.getElementById('prev_experience_yes').checked,
-                prev_experience_no: document.getElementById('prev_experience_no').checked,
-                am_mon: document.getElementById('am_mon').checked,
-                am_tue: document.getElementById('am_tue').checked,
-                am_wed: document.getElementById('am_wed').checked,
-                am_thu: document.getElementById('am_thu').checked,
-                am_fri: document.getElementById('am_fri').checked,
-                am_sat: document.getElementById('am_sat').checked,
-                am_sun: document.getElementById('am_sun').checked,
-                pm_mon: document.getElementById('pm_mon').checked,
-                pm_tue: document.getElementById('pm_tue').checked,
-                pm_wed: document.getElementById('pm_wed').checked,
-                pm_thu: document.getElementById('pm_thu').checked,
-                pm_fri: document.getElementById('pm_fri').checked,
-                pm_sat: document.getElementById('pm_sat').checked,
-                pm_sun: document.getElementById('pm_sun').checked,
-                activity_conditions: document.getElementById('activity_conditions').value,
-                activity_support: document.getElementById('activity_support').checked,
-                activity_interpretation: document.getElementById('activity_interpretation').checked,
-                activity_communication: document.getElementById('activity_communication').checked,
-                content_sports: document.getElementById('content_sports').checked,
-                content_exchange: document.getElementById('content_exchange').checked,
-                content_lecture: document.getElementById('content_lecture').checked,
-                content_course: document.getElementById('content_course').checked,
-                content_school: document.getElementById('content_school').checked,
-                content_study: document.getElementById('content_study').checked,
-                content_other: document.getElementById('content_other').checked,
-                activity_etc: document.getElementById('activity_etc').value 
-            };
-            
-            try {
-                const response = await fetch(GAS_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                // no-corsモードの場合、レスポンスを確認できないため成功とみなす
-                messageDiv.textContent = 'データを送信しました。';
-                messageDiv.className = 'message success';
-                messageDiv.style.display = 'block';
-                
-                // フォームをリセット
-                document.getElementById('membershipForm').reset();
-                
-            } catch (error) {
-                console.error('Error:', error);
-                messageDiv.textContent = 'エラーが発生しました: ' + error.message;
-                messageDiv.className = 'message error';
-                messageDiv.style.display = 'block';
-            } finally {
-                // ボタンを再度有効化
-                submitBtn.disabled = false;
-                submitBtn.textContent = '送信する';
-                
-                // 3秒後にメッセージを非表示
-                setTimeout(() => {
-                    messageDiv.style.display = 'none';
-                }, 3000);
-            }
-        });
-    </script>
+                status: document.getElementById('status').value,
+                branch: document.getElementById('branch').value,
+                furigana: document.getElementById('furigana').value,
+                gender: document.getElementById('gender').value,
+                name: document.getElementById('name').value,
+                age: document.getElementById('age').value,
+                postal: document.getElementById('postal').value,
+                address1: document.getElementById('address1').value,
+                address2: document.getElementById('address2').value,
+                phone: document.getElementById('phone').value,
+                fax: document.getElementById('fax').value,
+                email: document.getElementById('email').value,
+                category: document.getElementById('category').value,
+                training_course: document.getElementById('training_course').checked,
+                hop: document.getElementById('hop').checked,
+                step: document.getElementById('step').checked,
+                jump: document.getElementById('jump').checked,
+                experience_years: document.getElementById('experience_years').value,
+                other_experience: document.getElementById('other_experience').value,
+                new_policy: document.getElementById('new_policy').checked,
+                own_policy: document.getElementById('own_policy').checked,
+                organization_name: document.getElementById('organization_name').value,
+                contact_mail: document.getElementById('contact_mail').checked,
+                contact_fax: document.getElementById('contact_fax').checked,
+                contact_line: document.getElementById('contact_line').checked,
+                contact_no_line: document.getElementById('contact_no_line').checked
+                // これ以降のキー削除済み
+            };
+            
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                messageDiv.textContent = 'データを送信しました。';
+                messageDiv.className = 'message success';
+                messageDiv.style.display = 'block';
+                
+                document.getElementById('membershipForm').reset();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                messageDiv.textContent = 'エラーが発生しました: ' + error.message;
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '送信する';
+                
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
 
 </body>
 </html>
