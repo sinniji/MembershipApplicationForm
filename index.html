@@ -329,25 +329,26 @@
                 contact_fax: document.getElementById('contact_fax').checked,
                 contact_line: document.getElementById('contact_line').checked,
                 contact_no_line: document.getElementById('contact_no_line').checked
-                // これ以降のキー削除済み
             };
             
             try {
                 const response = await fetch(GAS_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
+                    body: JSON.stringify(formData), // GAS側は text/plain でも JSON.parse で受け取れます
                 });
-                
-                messageDiv.textContent = 'データを送信しました。自動返信メールをご確認ください。';
-                messageDiv.className = 'message success';
-                messageDiv.style.display = 'block';
-                
-                document.getElementById('membershipForm').reset();
-                
+            
+                // レスポンスの解析
+                const result = await response.json();
+            
+                if (result.status === 'success') {
+                    messageDiv.textContent = 'データを送信しました。自動返信メールをご確認ください。';
+                    messageDiv.className = 'message success';
+                    messageDiv.style.display = 'block';
+                    document.getElementById('membershipForm').reset();
+                } else {
+                    throw new Error(result.message || '保存に失敗しました');
+                }
+            
             } catch (error) {
                 console.error('Error:', error);
                 messageDiv.textContent = 'エラーが発生しました: ' + error.message;
