@@ -266,10 +266,12 @@
         </form>
     </div>
 <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+<script src="https://www.google.com/recaptcha/enterprise.js?render=6Ld_w0QsAAAAAAzRMmb9rHYQZO24BQ3Qyr0RLr5C"></script>
 <script>
         // GASのウェブアプリURLをここに設定してください
         const GAS_URL = 'https://script.google.com/macros/s/AKfycbzDNMouYtXS-ahYye6viBpEnvB__dnWwDHfaRFf5DkZ8boyviPRPTGWRMlmsM4nu2X_/exec';
-        
+        const RECAPTCHA_SITE_KEY = '6Ld_w0QsAAAAAAzRMmb9rHYQZO24BQ3Qyr0RLr5C';
+    
         document.getElementById('membershipForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -286,20 +288,21 @@
                 messageDiv.className = 'message error';
                 messageDiv.style.display = 'block';
                 orgNameInput.focus();
-                
                 setTimeout(() => {
-                    messageDiv.style.display = 'none';
+                    messageDiv.style.display = 'none'; 
                 }, 3000);
-                
                 return;
             }
-            // --- ▲ ここまで追加 ---
-            
+            // ボタンを無効化
             submitBtn.disabled = true;
-            submitBtn.textContent = '送信中...';
-            
+submitBtn.textContent = 'セキュリティチェック中...';
+        
+        try {
+            // --- ★ 追加：reCAPTCHA トークンの取得 ---
+            // enterprise.execute を使ってトークンを発行します
+            const token = await grecaptcha.enterprise.execute(RECAPTCHA_SITE_KEY, {action: 'submit'});
+
             // フォームデータを収集
-            // ボランティア詳細（qualification_year以降）を削除しました
             const formData = {
                 timestamp: new Date().toISOString(),
                 new_membership: document.getElementById('new_membership').value,
@@ -328,42 +331,46 @@
                 contact_mail: document.getElementById('contact_mail').checked,
                 contact_fax: document.getElementById('contact_fax').checked,
                 contact_line: document.getElementById('contact_line').checked,
-                contact_no_line: document.getElementById('contact_no_line').checked
+                contact_no_line: document.getElementById('contact_no_line').checked,
+                
+                // ★ 追加：取得したトークンをデータに含める
+                recaptchaToken: token 
             };
             
-            try {
-                const response = await fetch(GAS_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(formData), // GAS側は text/plain でも JSON.parse で受け取れます
-                });
-            
-                // レスポンスの解析
-                const result = await response.json();
-            
-                if (result.status === 'success') {
-                    messageDiv.textContent = 'データを送信しました。自動返信メールをご確認ください。';
-                    messageDiv.className = 'message success';
-                    messageDiv.style.display = 'block';
-                    document.getElementById('membershipForm').reset();
-                } else {
-                    throw new Error(result.message || '保存に失敗しました');
-                }
-            
-            } catch (error) {
-                console.error('Error:', error);
-                messageDiv.textContent = 'エラーが発生しました: ' + error.message;
-                messageDiv.className = 'message error';
+            submitBtn.textContent = '送信中...';
+        
+            const response = await fetch(GAS_URL, {
+                method: 'POST',
+                body: JSON.stringify(formData),
+            });
+        
+            const result = await response.json();
+        
+            if (result.status === 'success') {
+                messageDiv.textContent = 'データを送信しました。自動返信メールをご確認ください。';
+                messageDiv.className = 'message success';
                 messageDiv.style.display = 'block';
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = '送信する';
-                
-                setTimeout(() => {
-                    messageDiv.style.display = 'none';
-                }, 5000);
+                document.getElementById('membershipForm').reset();
+            } else {
+                // スコアが低くて弾かれた場合などもここに入ります
+                throw new Error(result.message || '保存に失敗しました');
             }
-        });
-    </script>
+        
+        } catch (error) {
+            console.error('Error:', error);
+            messageDiv.textContent = 'エラーが発生しました: ' + error.message;
+            messageDiv.className = 'message error';
+            messageDiv.style.display = 'block';
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = '送信する';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+    });
+</script>
 
 </body>
 </html>
