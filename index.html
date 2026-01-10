@@ -52,6 +52,28 @@
         
         /* --- 追加スタイル: 注意書き用 --- */
         .notice-text { color: #d32f2f; font-weight: bold; font-size: 0.95em; margin-top: 20px; line-height: 1.5; }
+
+        /* --- 追加：より目立たせるための警告ボックススタイル --- */
+        .important-notice {
+            background-color: #fff3cd; /* 薄い黄色 */
+            border: 2px solid #ffeeba; /* 枠線 */
+            color: #856404; /* 濃い茶色（文字） */
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .important-notice strong {
+            color: #d32f2f; /* 赤色で強調 */
+            font-size: 1.1em;
+        }
+        
+        .important-notice ul {
+            margin-top: 10px;
+            margin-left: 20px;
+        }
     </style>
 </head>
 <body>
@@ -262,6 +284,20 @@
                 <p>※送信後、入力されたメールアドレス宛に必ず自動返信メールが届きます。<br>
                 届かない場合は、メールアドレスの誤りや迷惑メール設定をご確認ください。</p>
             </div>
+
+<div class="important-notice">
+    <strong>【重要：お申し込み後の流れ】</strong>
+    <p>送信後、入力されたメールアドレス宛に<strong>「自動返信メール」</strong>が届きます。受付にてこのメールを提示して入会金をお支払いいただきますので、大切に保管してください。</p>
+    
+    <p style="margin-top: 10px; font-weight: bold;">もしメールが届かない場合は、以下をご確認ください：</p>
+    <ul>
+        <li>メールアドレスに誤りがないか（特にドメイン）</li>
+        <li>迷惑メールフォルダやプロモーションタブへの振り分け</li>
+        <li>ドメイン指定受信設定（@gmail.com等を受信可能か）</li>
+    </ul>
+</div>
+
+            
             <button type="submit" class="submit-btn" id="submitBtn">送信する</button>
         </form>
     </div>
@@ -295,7 +331,7 @@
             }
             // ボタンを無効化
             submitBtn.disabled = true;
-submitBtn.textContent = 'セキュリティチェック中...';
+            submitBtn.textContent = 'セキュリティチェック中...';
         
         try {
             // --- ★ 追加：reCAPTCHA トークンの取得 ---
